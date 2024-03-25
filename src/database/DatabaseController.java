@@ -13,6 +13,10 @@ import interfaces.DatabaseInterface;
  * @student sba23066
  */
 
+/**
+* This Class is to work with database engine more agile
+* It initializes a connection to DataBase choosen in config
+*/
 public class DatabaseController {
 
     public DatabaseInterface db;
@@ -42,7 +46,7 @@ public class DatabaseController {
         db.connect();
     }
 
-    // Set current atabase
+    // Set current database
     public void DatabaseSet(String databaseName){
         db.makeQuery("USE " + databaseName + ";");
     }

@@ -4,8 +4,6 @@
  */
 package Menu;
 
-import interfaces.MenuInterface;
-
 /**
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
@@ -13,12 +11,9 @@ import interfaces.MenuInterface;
  */
 
 /**
-* Abstract Class is to implement different menu UI
+* Abstract Class is to implement console based menu UI
 */
-public class AbstractMenu implements MenuInterface {
-
-    public String current_item;
-       
+public class MenuConsole extends AbstractMenu{
     
     @Override
     public void showMenu() {
@@ -28,5 +23,5 @@ public class AbstractMenu implements MenuInterface {
     @Override
     public void hideMenu() {
         // Hide menu
-    }        
+    }  
 }

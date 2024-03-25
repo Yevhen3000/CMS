@@ -13,6 +13,9 @@ import interfaces.DatabaseInterface;
  * @student sba23066
  */
 
+/**
+* Abstract Class to implement different database engines
+*/
 abstract class AbstractDatabaseConnector implements DatabaseInterface{
     
     public Connection conn;

@@ -18,13 +18,16 @@ import java.sql.ResultSet;
  * @student sba23066
  */
 
+/**
+* This Class is to connect and work with a mySQL DataBase
+* Implementation of abstract class
+*/
 public class mySQLConnector extends AbstractDatabaseConnector {
 
-     /**
-     * Init mySQL server variables
-     *
-     */
-    
+    /**
+    * Init mySQL server variables
+    *
+    */
     public mySQLConnector(String url, String user, String password, String databasename){
         db_url = url;
         db_user = user;
@@ -52,7 +55,6 @@ public class mySQLConnector extends AbstractDatabaseConnector {
      *
      * throws Exception if execution error occurs
      */
-    
     @Override
     public void makeQuery(String query){
         

@@ -10,6 +10,11 @@ package database;
  * @student sba23066
  */
 
+/**
+* This class is designed to populate the database with 
+* the minimum required set of data.
+* Also to generate sql format files as per the database part of the present CA.
+*/
 public class ObservationsMaker {
     
 }

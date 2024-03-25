@@ -22,6 +22,9 @@ import org.json.simple.parser.ParseException;
  * @student sba23066
  */
 
+/**
+* This Class is to handle config data of this app
+*/
 public class Config {
     
     private final String configFileName = "cms.config.json";
@@ -31,7 +34,9 @@ public class Config {
     private String db_password;
     private String db_type;
     private String database_name;
-
+    
+    private String menu_type;
+    
     public String getDbName() {
         return database_name;
     }
@@ -52,6 +57,10 @@ public class Config {
         return db_type;
     }    
 
+    public String getMenuType() {
+        return menu_type;
+    }   
+    
      /**
      * Parses a content of JSON string and initializes variables 
      * for DB connction
@@ -70,6 +79,8 @@ public class Config {
             db_password = (String) jsonConfigObject.get("database_password");
             database_name = (String) jsonConfigObject.get("database_name");
             db_type = (String) jsonConfigObject.get("database_type");
+            
+            menu_type = (String) jsonConfigObject.get("menu_type");
             
         } catch (ParseException e) {
             System.out.println("Error: cannot parse config JSON: " + e.getMessage());

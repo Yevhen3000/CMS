@@ -10,6 +10,9 @@ package interfaces;
  * @student sba23066
  */
 
+/**
+* This Interface is dedicated to connect to different DataBase engines
+*/
 public interface DatabaseInterface {
     void connect();
     void makeQuery(String query);

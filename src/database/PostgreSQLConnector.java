@@ -14,6 +14,10 @@ import java.sql.Statement;
  * @student sba23066
  */
 
+/**
+* This Class is to connect and work with a Postgre DataBase
+* Implementation of abstract class
+*/
 public class PostgreSQLConnector extends AbstractDatabaseConnector {
 
      /**

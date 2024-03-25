@@ -15,6 +15,9 @@ import java.util.Base64;
  * @student sba23066
  */
 
+/**
+* This Class is to handle all security features of this app
+*/
 public class Security {
 
     /**

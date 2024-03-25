@@ -5,9 +5,15 @@
 package interfaces;
 
 /**
- *
- * @author Admin
+ * @author  Yevhen Kuropiatnyk
+ * @email   evgeniy.kuropyatnik@gmail.com
+ * @student sba23066
  */
+
+/**
+* This Interface is dedicated to handle menu with different UI
+*/
 public interface MenuInterface {
-    
+    void showMenu();
+    void hideMenu();
 }

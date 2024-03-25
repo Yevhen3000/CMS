@@ -13,6 +13,11 @@ import interfaces.DatabaseInterface;
  * @student sba23066
  */
 
+
+/**
+* This Class to create a DataBase, Tables
+* if there are still no
+*/
 public class DatabaseSetup {
     
     private DatabaseInterface database;

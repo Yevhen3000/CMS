@@ -14,6 +14,9 @@ import interfaces.DatabaseInterface;
  * @student sba23066
  */
 
+/**
+* This Class is an entry point of this app
+*/
 public class CMS {
 
     public static DatabaseInterface db;
