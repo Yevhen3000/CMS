@@ -4,7 +4,8 @@
  */
 package cms;
 
-import database.DatabaseConnector;
+import database.mySQLConnector;
+import interfaces.DatabaseConnector;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -24,11 +25,15 @@ public class CMS {
         appConfig.Init();
                 
         // Init DataBase connection
-        DatabaseConnector dbServer = new DatabaseConnector();
-        dbServer.connect(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword());
-        
+        DatabaseConnector mysql = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword());
+        mysql.connect();
         // Create a new DataBase if there is still no
-        dbServer.makeQuery("CREATE DATABASE IF NOT EXISTS " +appConfig.getDbName());
+        mysql.makeQuery("CREATE DATABASE IF NOT EXISTS " +appConfig.getDbName());
+        
+        //Security salt = new Security();
+        //System.out.println(salt.generateSalt().toString() );
+        
+        mysql.disconnect();
         
     }
     
