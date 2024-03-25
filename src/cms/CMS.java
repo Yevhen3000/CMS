@@ -4,6 +4,8 @@
  */
 package cms;
 
+import database.DatabaseConnector;
+
 /**
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
@@ -16,11 +18,18 @@ public class CMS {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+                
+        // Init config file
+        Config appConfig = new Config();
+        appConfig.Init();
+                
+        // Init DataBase connection
+        DatabaseConnector dbServer = new DatabaseConnector();
+        dbServer.connect(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword());
         
-        Config currentConfig = new Config();
-        currentConfig.Init();
-        currentConfig.getDb_host();
+        // Create a new DataBase if there is still no
+        dbServer.makeQuery("CREATE DATABASE IF NOT EXISTS " +appConfig.getDbName());
+        
     }
     
 }

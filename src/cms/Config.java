@@ -30,34 +30,55 @@ public class Config {
     private String db_user;
     private String db_password;
     
-    public String getDb_host() {
+    private String database_name;
+
+    public String getDbName() {
+        return database_name;
+    }
+    
+    public String getUrlHost() {
         return db_host;
     }
 
-    public String getDb_user() {
+    public String getUser() {
         return db_user;
     }
 
-    public String getDb_password() {
+    public String getPassword() {
         return db_password;
     }
 
+     /**
+     * Parses a content of JSON string and initializes variables 
+     * for DB connction
+     *
+     * throws ParseException if parse JSON error occurs
+     */
+    
     public void Init(){
         
         String configJsonString = readFromFile(configFileName);
-        
+
         try {
             JSONParser parser = new JSONParser();
             jsonConfigObject = (JSONObject) parser.parse(configJsonString);
-            db_user = (String) jsonConfigObject.get("database_url");
-            db_host = (String) jsonConfigObject.get("database_username");
+            db_host = (String) jsonConfigObject.get("database_url");
+            db_user = (String) jsonConfigObject.get("database_username");
             db_password = (String) jsonConfigObject.get("database_password");
-        
+            database_name = (String) jsonConfigObject.get("database_name");
+            
         } catch (ParseException e) {
             System.out.println("Error: cannot parse config JSON: " + e.getMessage());
         }
 
     }
+    
+    /**
+     * Gets a content from the confog file with path as fileName parameter
+     *
+     * @return a content of file
+     * @throws IOException if a file access error occurs
+     */
     
     private String readFromFile(String fileName){
         StringBuilder contentBuilder = new StringBuilder();

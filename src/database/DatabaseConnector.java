@@ -18,21 +18,34 @@ import java.sql.Statement;
  */
 
 public class DatabaseConnector {
-    private final String DB_URL = "jdbc:mysql://localhost"; //    private final String DB_URL = "jdbc:mysql://localhost/bank";
-    private final String USER = "pooa2024";
-    private final String PASSWORD = "pooa2024";
-    
+   
     private Connection conn;
     
     public void connect(String dbUrl, String dbUser, String dbPassword){
         try {
+            
+            System.out.println(dbUrl);
             conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-            Statement stmt = conn.createStatement();
-            stmt.execute("CREATE DATABASE bank;");
-            System.out.println("Database sucessfully created;");
-            conn.close();
+
+            //conn.close();
         } catch (Exception e) {
             System.out.println("Error: cannot connect to DataBase: " + e.getMessage());
         }
     }
+    
+    public void makeQuery(String query){
+        
+        if (conn==null) {
+            System.out.println("Error: no active DataBase connection");
+            return;
+        }
+                    
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query + ";");
+        } catch (Exception e) {
+            System.out.println("Error: cannot execute query: " + e.getMessage());
+        }      
+    }
+        
 }
