@@ -29,7 +29,7 @@ public class Config {
     private String db_host;
     private String db_user;
     private String db_password;
-    
+    private String db_type;
     private String database_name;
 
     public String getDbName() {
@@ -47,6 +47,10 @@ public class Config {
     public String getPassword() {
         return db_password;
     }
+    
+    public String getDbType() {
+        return db_type;
+    }    
 
      /**
      * Parses a content of JSON string and initializes variables 
@@ -54,7 +58,6 @@ public class Config {
      *
      * throws ParseException if parse JSON error occurs
      */
-    
     public void Init(){
         
         String configJsonString = readFromFile(configFileName);
@@ -66,6 +69,7 @@ public class Config {
             db_user = (String) jsonConfigObject.get("database_username");
             db_password = (String) jsonConfigObject.get("database_password");
             database_name = (String) jsonConfigObject.get("database_name");
+            db_type = (String) jsonConfigObject.get("database_type");
             
         } catch (ParseException e) {
             System.out.println("Error: cannot parse config JSON: " + e.getMessage());
@@ -94,5 +98,7 @@ public class Config {
 
         return contentBuilder.toString();        
     }
+
+
     
 }

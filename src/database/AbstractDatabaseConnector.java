@@ -5,6 +5,7 @@
 package database;
 
 import interfaces.DatabaseConnector;
+import java.sql.Connection;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -13,6 +14,15 @@ import interfaces.DatabaseConnector;
  */
 
 abstract class AbstractDatabaseConnector implements DatabaseConnector{
+    
+    public Connection conn;
+    public String db_url;
+    public String db_user;
+    public String db_password;
+    public String db_database;
+    public String database_type;
+       
+    
    @Override
     public void connect() {
         // Connection to DB

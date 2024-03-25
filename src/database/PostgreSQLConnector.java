@@ -15,22 +15,16 @@ import java.sql.Statement;
  */
 
 public class PostgreSQLConnector extends AbstractDatabaseConnector {
-    
-    private Connection conn;
-    private String db_url;
-    private String db_user;
-    private String db_password;
-
 
      /**
      * Init PostgreSQL server variables
      *
      */
-    
-    public PostgreSQLConnector(String url, String user, String password){
+    public PostgreSQLConnector(String url, String user, String password, String databasename){
         db_url = url;
         db_user = user;
         db_password = password;
+        db_database = databasename;
     }
     
      /**
@@ -40,10 +34,16 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
      *
      * throws Exception if connection error occurs
      */    
-    
     @Override
     public void connect() {
-        System.out.println("Connecting to PostgreSQL database...");
+        //String db_url = "jdbc:postgresql://localhost:5432/
+        try {
+            conn = DriverManager.getConnection(db_url, db_user, db_password);
+            Statement stmt = conn.createStatement();
+            stmt.execute("USE " + db_database + ";");            
+        } catch (Exception e) {
+            System.out.println("Error: cannot connect to PostgreSQL: " + e.getMessage());
+        }
     }
     
      /**
@@ -51,7 +51,6 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
      * 
      * throws Exception if execution error occurs
      */
-    
     @Override
     public void makeQuery(String query) {
         if (conn==null) {
@@ -63,20 +62,22 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
             Statement stmt = conn.createStatement();
             stmt.execute(query + ";");
         } catch (Exception e) {
-            System.out.println("Error: cannot execute query: " + e.getMessage());
+            System.out.println("Error: cannot execute PostgreSQL query: " + e.getMessage());
         } 
     }
 
      /**
-     * ToDo:
      * Closing connction to the PostgreSQL server 
      *
      * throws Exception if disconnection error occurs
      */    
-    
     @Override
     public void disconnect() {
-        System.out.println("Disconnecting from PostgreSQL database...");
+        try {
+            if (conn!=null) conn.close();
+        } catch (Exception e) {
+            System.out.println("Error: cannot close PostgreSQL connection: " + e.getMessage());
+        } 
     }
     
 }

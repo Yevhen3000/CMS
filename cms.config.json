@@ -2,5 +2,6 @@
     "database_url": "jdbc:mysql://localhost",
     "database_username": "pooa2024",
     "database_password": "pooa2024",
-	"database_name": "CMS"
+	"database_name": "CMS",
+	"database_type": "mySQL"
 }

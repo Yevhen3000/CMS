@@ -17,6 +17,10 @@ import java.util.Base64;
 
 public class Security {
 
+    /**
+    * Hashes a password with salt
+    * 
+    */
     public String hashPassword(String password) {
         try {
             byte[] salt = generateSalt();
@@ -30,7 +34,10 @@ public class Security {
         }
     }
     
-    
+    /**
+    * Verifyies a password with hashed one
+    * 
+    */
     public boolean verifyPassword(String inputPassword, String storedPassword) {
         try {
             String[] parts = storedPassword.split(":");
@@ -46,6 +53,10 @@ public class Security {
         }
     }
 
+    /**
+    * Creates a salt
+    * 
+    */
     private byte[] generateSalt() {
         byte[] salt = new byte[16];
         SecureRandom random = new SecureRandom();

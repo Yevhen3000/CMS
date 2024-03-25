@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -18,21 +19,17 @@ import java.sql.Statement;
  */
 
 public class mySQLConnector extends AbstractDatabaseConnector {
-   
-    private Connection conn;
-    private String db_url;
-    private String db_user;
-    private String db_password;
 
      /**
      * Init mySQL server variables
      *
      */
     
-    public mySQLConnector(String url, String user, String password){
+    public mySQLConnector(String url, String user, String password, String databasename){
         db_url = url;
         db_user = user;
         db_password = password;
+        db_database = databasename;
     }
     
      /**
@@ -45,6 +42,8 @@ public class mySQLConnector extends AbstractDatabaseConnector {
     public void connect() {
         try {
             conn = DriverManager.getConnection(db_url, db_user, db_password);
+            Statement stmt = conn.createStatement();
+            stmt.execute("USE " + db_database + ";");
         } catch (Exception e) {
             System.out.println("Error: cannot connect to DataBase: " + e.getMessage());
         }
@@ -52,7 +51,6 @@ public class mySQLConnector extends AbstractDatabaseConnector {
 
      /**
      * Execute a query to the MySQL server
-     * 
      *
      * throws Exception if execution error occurs
      */
@@ -76,7 +74,6 @@ public class mySQLConnector extends AbstractDatabaseConnector {
      /**
      * Closing connction to the MySQL server 
      * 
-     *
      * throws Exception if disconnection error occurs
      */
     

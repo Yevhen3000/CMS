@@ -4,8 +4,9 @@
  */
 package cms;
 
-import database.mySQLConnector;
 import interfaces.DatabaseConnector;
+import database.DatabaseSetup;
+import database.DatabaseController;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -15,24 +16,36 @@ import interfaces.DatabaseConnector;
 
 public class CMS {
 
+    public static DatabaseConnector db;
+    
     public static void main(String[] args) {
                 
-        // Get config from file "cms.config.json"
+        /**
+        * Load config from file "cms.config.json"
+        * and parse it to use in the entire app
+        * 
+        */
         Config appConfig = new Config();
         appConfig.Init();
-                
-        // Init mySQL connection. In order to use Postgre database use PostgreSQLConnector (implementation is needed)
-        DatabaseConnector mysql = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword());
-        mysql.connect();
+
+        /**
+        * Connects to database depending on the config
+        * 
+        */        
+        DatabaseController dbCtrl = new DatabaseController( appConfig );
         
-        // Create a new DataBase if there is still no
-        mysql.makeQuery("CREATE DATABASE IF NOT EXISTS " +appConfig.getDbName());
-        
-        //Security salt = new Security();
-        //System.out.println(salt.hashPassword(appConfig.getPassword()) );
-        
-        // Close connection to the database
-        mysql.disconnect();
+        /**
+        * Set up database and tables
+        * 
+        */                
+        DatabaseSetup dbSet = new DatabaseSetup(dbCtrl.db, appConfig );
+
+        /**
+        * Shutdown our app
+        * 
+        */                        
+        dbCtrl.DatabaseStop();
+        System.out.println("Done.");
         
     }
     
