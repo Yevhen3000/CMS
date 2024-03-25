@@ -61,7 +61,7 @@ public class mySQLConnector extends AbstractDatabaseConnector {
     public void makeQuery(String query){
         
         if (conn==null) {
-            System.out.println("Error: no active DataBase connection");
+            System.out.println("Error: no active MySQL connection");
             return;
         }
                     

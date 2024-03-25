@@ -6,6 +6,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -46,7 +47,6 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
     }
     
      /**
-     * ToDo:
      * Execute a query to the PostgreSQL server
      * 
      * throws Exception if execution error occurs
@@ -54,7 +54,17 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
     
     @Override
     public void makeQuery(String query) {
-        System.out.println("Executing PostgreSQL query: " + query);
+        if (conn==null) {
+            System.out.println("Error: no active PostgreSQL connection");
+            return;
+        }
+                    
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query + ";");
+        } catch (Exception e) {
+            System.out.println("Error: cannot execute query: " + e.getMessage());
+        } 
     }
 
      /**
