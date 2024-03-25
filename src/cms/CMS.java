@@ -4,9 +4,9 @@
  */
 package cms;
 
-import interfaces.DatabaseConnector;
 import database.DatabaseSetup;
 import database.DatabaseController;
+import interfaces.DatabaseInterface;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -16,33 +16,44 @@ import database.DatabaseController;
 
 public class CMS {
 
-    public static DatabaseConnector db;
+    public static DatabaseInterface db;
     
     public static void main(String[] args) {
                 
         /**
         * Load config from file "cms.config.json"
         * and parse it to use in the entire app
-        * 
         */
         Config appConfig = new Config();
         appConfig.Init();
 
         /**
         * Connects to database depending on the config
-        * 
         */        
         DatabaseController dbCtrl = new DatabaseController( appConfig );
         
         /**
         * Set up database and tables
-        * 
         */                
         DatabaseSetup dbSet = new DatabaseSetup(dbCtrl.db, appConfig );
 
+        dbCtrl.DatabaseSet(appConfig.getDbName());
+        
+        dbSet.createTables();
+
+        /**
+        * ToDO:
+        * Fill tables with observations
+        */
+
+        
+        /**
+        * ToDO:
+        * Launch app menu.
+        */                                
+        
         /**
         * Shutdown our app
-        * 
         */                        
         dbCtrl.DatabaseStop();
         System.out.println("Done.");

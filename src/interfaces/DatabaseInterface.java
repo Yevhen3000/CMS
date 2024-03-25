@@ -10,7 +10,7 @@ package interfaces;
  * @student sba23066
  */
 
-public interface DatabaseConnector {
+public interface DatabaseInterface {
     void connect();
     void makeQuery(String query);
     void disconnect();

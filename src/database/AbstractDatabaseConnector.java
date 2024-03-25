@@ -4,8 +4,8 @@
  */
 package database;
 
-import interfaces.DatabaseConnector;
 import java.sql.Connection;
+import interfaces.DatabaseInterface;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -13,7 +13,7 @@ import java.sql.Connection;
  * @student sba23066
  */
 
-abstract class AbstractDatabaseConnector implements DatabaseConnector{
+abstract class AbstractDatabaseConnector implements DatabaseInterface{
     
     public Connection conn;
     public String db_url;

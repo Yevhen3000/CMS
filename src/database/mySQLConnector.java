@@ -42,8 +42,6 @@ public class mySQLConnector extends AbstractDatabaseConnector {
     public void connect() {
         try {
             conn = DriverManager.getConnection(db_url, db_user, db_password);
-            Statement stmt = conn.createStatement();
-            stmt.execute("USE " + db_database + ";");
         } catch (Exception e) {
             System.out.println("Error: cannot connect to DataBase: " + e.getMessage());
         }

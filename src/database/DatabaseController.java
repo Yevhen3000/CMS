@@ -5,7 +5,7 @@
 package database;
 
 import cms.Config;
-import interfaces.DatabaseConnector;
+import interfaces.DatabaseInterface;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -15,7 +15,7 @@ import interfaces.DatabaseConnector;
 
 public class DatabaseController {
 
-    public DatabaseConnector db;
+    public DatabaseInterface db;
 
     /**
     * Init Database connection depends on config
@@ -24,15 +24,27 @@ public class DatabaseController {
     */    
     public DatabaseController( Config appConfig) {
         
-        if (appConfig.getDbType().equalsIgnoreCase("mySQL") ) {
-            db = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
-        } else if (appConfig.getDbType().equalsIgnoreCase("PostgreSQL")) {
-            db = new PostgreSQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
-        } else {
-            db = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
-        }
-        db.connect();
+        String DataBaseEngine = appConfig.getDbType().toLowerCase();
+        
+        switch (DataBaseEngine) {
+          case "mysql": 
+              db = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
+              break;
 
+          case "postgresql": 
+              db = new PostgreSQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
+              break;
+
+          default:     
+              db = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
+        }
+
+        db.connect();
+    }
+
+    // Set current atabase
+    public void DatabaseSet(String databaseName){
+        db.makeQuery("USE " + databaseName + ";");
     }
     
     // Close connection to the database

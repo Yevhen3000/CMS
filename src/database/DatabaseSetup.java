@@ -5,7 +5,7 @@
 package database;
 
 import cms.Config;
-import interfaces.DatabaseConnector;
+import interfaces.DatabaseInterface;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -15,7 +15,7 @@ import interfaces.DatabaseConnector;
 
 public class DatabaseSetup {
     
-    private DatabaseConnector database;
+    private DatabaseInterface database;
     private Config config;
     
     private String[] queries = {
@@ -33,23 +33,29 @@ public class DatabaseSetup {
     * and all tables we need to work with
     * 
     */
-    public DatabaseSetup(DatabaseConnector db, Config appConfig ){
+    public DatabaseSetup(DatabaseInterface db, Config appConfig ){
         database = db;
         config = appConfig;
         
         createDataBase();
-        createTables();
+        
     }
 
+    /**
+    * Create Database we need to work with
+    */ 
     private void createDataBase() {
         database.makeQuery("CREATE DATABASE IF NOT EXISTS " +config.getDbName());    
     }
-    
-    private void createTables() {
+
+    /**
+    * Create all tables we need to work with
+    */    
+    public void createTables() {
         
         for (String oneQ: queries) {           
             
-            System.out.println(oneQ);
+            //System.out.println(oneQ);
             database.makeQuery(oneQ);
         }
        
