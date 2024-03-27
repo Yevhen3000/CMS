@@ -4,19 +4,15 @@
  */
 package cms;
 
-import Server.MyHttpHandler;
+import Server.HttpServer;
 import cms.Config.userType;
-import com.sun.net.httpserver.HttpContext;
-import com.sun.net.httpserver.HttpServer;
 import database.DatabaseSetup;
 import database.DatabaseController;
+import database.ObservationsMaker;
 import interfaces.DatabaseInterface;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import users.User;
 import users.UserPermissions;
 
-import com.sun.net.httpserver.HttpHandler;
 /**
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
@@ -69,22 +65,12 @@ public class CMS {
         admin.Add("admin", appConfig.getAdminPassword() ,userType.ADMIN, false);
         UserPermissions userPermissions = new UserPermissions(appConfig);
         
+//        // Expose the server to: http://127.0.0.1:8080/
+//        HttpServer srv = new HttpServer(appConfig);
+//        srv.start();
         
-        
-        
-        // Create HttpServer which is listening to the given port on the given IP address
-        HttpServer server;
-        InetAddress localAddress;
-        
-        try {
-            localAddress = InetAddress.getByName("127.0.0.1");
-            server = HttpServer.create(new InetSocketAddress(localAddress, 8080), 0);
-            HttpContext context = server.createContext("/", new MyHttpHandler());
-            server.start();  
-        } catch (Exception e) {
-            System.out.println("Erro: server");
-        }
-             
+        ObservationsMaker dataGen = new ObservationsMaker();
+        dataGen.generateData();
         
         //System.out.println("add_user:" + userPermissions.hasPermission(admin, "add_user"));
         

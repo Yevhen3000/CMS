@@ -36,6 +36,10 @@ public class Config {
     private String database_name;
     private String admin_password;
     
+    public String http_server_ip;
+    public int http_server_port;
+    
+    
     private String menu_type;
     
     public enum outputType {
@@ -104,6 +108,11 @@ public class Config {
             
             menu_type = (String) jsonConfigObject.get("menu_type");
             admin_password = (String) jsonConfigObject.get("admin_password");
+            
+            http_server_ip = (String) jsonConfigObject.get("http_server_ip");
+            
+            String temp_int = (String) jsonConfigObject.get("http_server_port");
+            http_server_port =  Integer.parseInt(temp_int);
             
         } catch (ParseException e) {
             System.out.println("Error: cannot parse config JSON: " + e.getMessage());

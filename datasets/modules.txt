@@ -1,0 +1,100 @@
+Introduction to Computer Science
+Programming Fundamentals
+Data Structures and Algorithms
+Object-Oriented Programming
+Database Management Systems
+Web Development Basics
+Software Engineering Principles
+Network Fundamentals
+Operating Systems Concepts
+Cybersecurity Essentials
+Introduction to Artificial Intelligence
+Mobile Application Development
+Cloud Computing Fundamentals
+Human-Computer Interaction
+Software Testing and Quality Assurance
+Data Analytics and Visualization
+Internet of Things (IoT) Applications
+Computer Graphics and Visualization
+Introduction to Machine Learning
+Blockchain Technology Fundamentals
+Web Design and Development
+Computer Organization and Architecture
+Advanced Data Structures
+Object-Oriented Analysis and Design
+Relational Database Design
+Server-Side Web Development
+Software Project Management
+Network Security Principles
+Linux System Administration
+Ethical Hacking and Penetration Testing
+Natural Language Processing
+Mobile Game Development
+Cloud Infrastructure Management
+User Experience Design
+Agile Software Development
+Big Data Technologies
+Embedded Systems Programming
+Cryptography and Network Security
+Advanced Topics in Artificial Intelligence
+Web Application Security
+Responsive Web Design
+Distributed Systems Architecture
+Data Mining Techniques
+Computer Vision and Image Processing
+Quantum Computing Concepts
+Full-Stack Web Development
+Machine Learning for Cybersecurity
+Virtual Reality Development
+Cloud Security and Compliance
+Advanced Database Management
+Software Architecture Design
+Network Protocol Analysis
+Digital Forensics Investigation
+Robotics and Automation
+DevOps Principles and Practices
+Information Retrieval Techniques
+Game Design and Development
+Cryptocurrency and Blockchain Applications
+Microservices Architecture
+Reactive Programming
+Wireless Networking Technologies
+Information Security Management
+Computer-Assisted Design (CAD)
+Enterprise Resource Planning (ERP) Systems
+Natural User Interfaces
+Data Warehousing and Business Intelligence
+Mobile Device Management
+Cloud-Native Application Development
+Secure Software Development
+Advanced Machine Learning Algorithms
+Augmented Reality Applications
+Cyber Threat Intelligence
+Cloud Data Storage Solutions
+Data Privacy and Compliance
+Network Traffic Analysis
+Embedded Systems Design
+Front-End Frameworks and Libraries
+Blockchain-Based Smart Contracts
+Microcontroller Programming
+Continuous Integration and Deployment (CI/CD)
+Distributed Ledger Technologies
+Advanced Human-Computer Interaction
+Network Penetration Testing
+Data Science and Predictive Analytics
+Social Engineering Awareness
+Cloud Service Models and Deployment
+Cryptographic Protocols
+Advanced Web Security Techniques
+Information Security Risk Management
+Computer-Aided Manufacturing (CAM)
+Enterprise Software Integration
+Mobile Cloud Computing
+Natural Language Generation
+Real-Time Operating Systems
+Cloud Application Development
+Secure Coding Practices
+Malware Analysis and Reverse Engineering
+Internet Security Protocols
+Virtualization Technologies
+Advanced Topics in Quantum Computing
