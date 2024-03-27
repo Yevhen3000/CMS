@@ -124,14 +124,12 @@ public class DatabaseSetup {
     */ 
     private void createDataBase() {
         
-        if (!isDataBaseExits(config.getDbName() )) {
+        if (!isDataBaseExists(config.getDbName() )) {
             database.makeQuery("CREATE DATABASE IF NOT EXISTS " + config.getDbName());
             isNewDatabase = true;
         }
         database.makeQuery("USE " + config.getDbName());
         createTables();
-        
-        
         
         if (isNewDatabase) {
             
@@ -148,7 +146,7 @@ public class DatabaseSetup {
     */    
     private void createTables() {
         
-        for (String oneQ: queries) {           
+        for (String oneQ: queries) {
             database.makeQuery(oneQ);
         }
        
@@ -157,7 +155,7 @@ public class DatabaseSetup {
     /**
     * Checks for database with DataBaseName for existance
     */     
-    private boolean isDataBaseExits(String DataBaseName) {
+    private boolean isDataBaseExists(String DataBaseName) {
         ResultSet rs;
         int count = 0;
                 

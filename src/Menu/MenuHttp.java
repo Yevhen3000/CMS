@@ -18,10 +18,12 @@ public class MenuHttp extends AbstractMenu{
     @Override
     public void showMenu() {
         // Todo: Show menu
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void hideMenu() {
         // Todo: Hide menu
+        throw new UnsupportedOperationException("Not supported yet.");
     }      
 }

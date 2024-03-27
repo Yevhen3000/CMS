@@ -51,11 +51,9 @@ public class Config {
         LECTURER
     }
     
-    public String[] admin_permissions = {"create_user", "delete_user", "update_user"};
-    public String[] office_permissions = {"create_user", "delete_user", "update_user"};
-    public String[] lecturer_permissions = {"create_user", "delete_user", "update_user"};
-    
-            
+    public String[] admin_permissions = {"add_user", "modify_user", "delete_user", "can_change_own" };
+    public String[] office_permissions = {"report_all", "can_change_own"};
+    public String[] lecturer_permissions = {"report_lecturer_own", "can_change_own"};
 
     public String getAdminPassword() {
         return admin_password;

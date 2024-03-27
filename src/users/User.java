@@ -6,6 +6,7 @@ package users;
 
 import cms.Config;
 import cms.Config.userType;
+import cms.Security;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -24,11 +25,19 @@ public class User {
         config = appConfig;
     }
     private String username;
+    private String password;
     private userType role;
 
-    public void Add(String username, userType role) {
+    public void Add(String username, String password, userType role, boolean hashUserPassword ) {
         this.username = username;
         this.role = role;
+        
+        if (hashUserPassword) {    
+            Security security = new Security();
+            this.password = security.hashPassword(password);
+        } else {
+            this.password = password;
+        }
     }
 
     public String getUsername() {
@@ -38,5 +47,9 @@ public class User {
     public userType getRole() {
         return role;
     }    
+
+    public void loadFromDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }
