@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-/**
+/*
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
  * @student sba23066
@@ -20,7 +20,7 @@ import java.util.Base64;
 */
 public class Security {
 
-    /**
+    /*
     * Hashes a password with salt
     * 
     */

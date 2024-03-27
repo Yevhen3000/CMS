@@ -39,11 +39,16 @@ public class CMS {
         * Set up database and tables
         */                
         DatabaseSetup dbSet = new DatabaseSetup(dbCtrl.db, appConfig );
+        dbSet.Init();
 
-        dbCtrl.DatabaseSet(appConfig.getDbName());
+        //dbCtrl.setActiveDatabase(appConfig.getDbName());
+        //dbSet.createTables();
+
+        //Security sec = new Security();
+        //System.out.println(sec.hashPassword("java"));
+        //System.out.println(sec.verifyPassword("java",appConfig.getAdminPassword()));
         
-        dbSet.createTables();
-
+        
         /**
         * ToDO:
         * Fill tables with observations

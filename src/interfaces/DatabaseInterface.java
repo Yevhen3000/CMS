@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import java.sql.ResultSet;
+
 /**
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
@@ -16,5 +18,6 @@ package interfaces;
 public interface DatabaseInterface {
     void connect();
     void makeQuery(String query);
+    ResultSet getResultSet(String query);
     void disconnect();
 }

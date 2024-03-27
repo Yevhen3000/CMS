@@ -34,8 +34,13 @@ public class Config {
     private String db_password;
     private String db_type;
     private String database_name;
+    private String admin_password;
     
     private String menu_type;
+
+    public String getAdminPassword() {
+        return admin_password;
+    }
     
     public String getDbName() {
         return database_name;
@@ -81,6 +86,7 @@ public class Config {
             db_type = (String) jsonConfigObject.get("database_type");
             
             menu_type = (String) jsonConfigObject.get("menu_type");
+            admin_password = (String) jsonConfigObject.get("admin_password");
             
         } catch (ParseException e) {
             System.out.println("Error: cannot parse config JSON: " + e.getMessage());

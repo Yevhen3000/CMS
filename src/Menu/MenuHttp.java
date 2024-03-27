@@ -17,11 +17,11 @@ public class MenuHttp extends AbstractMenu{
     
     @Override
     public void showMenu() {
-        // Show menu
+        // Todo: Show menu
     }
 
     @Override
     public void hideMenu() {
-        // Hide menu
+        // Todo: Hide menu
     }      
 }

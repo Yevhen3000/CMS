@@ -47,7 +47,7 @@ public class DatabaseController {
     }
 
     // Set current database
-    public void DatabaseSet(String databaseName){
+    public void setActiveDatabase(String databaseName){
         db.makeQuery("USE " + databaseName + ";");
     }
     

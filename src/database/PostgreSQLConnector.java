@@ -6,6 +6,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
@@ -70,6 +71,14 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
         } 
     }
 
+    @Override
+    public ResultSet getResultSet(String query){
+     
+        ResultSet rs = null;
+        // To DO
+        return rs;
+    }
+    
      /**
      * Closing connction to the PostgreSQL server 
      *

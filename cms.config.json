@@ -4,5 +4,6 @@
     "database_password": "pooa2024",
 	"database_name": "CMS",
 	"database_type": "mySQL",
-	"menu_type": "console"
+	"menu_type": "console",
+	"admin_password": "9HOHOreTq+ISOQGcFPYnbQ==:dBUlbyqsYl6x3zKyliWOiTVTN6Qi2NjVw5r+DmG3w1Y="
 }

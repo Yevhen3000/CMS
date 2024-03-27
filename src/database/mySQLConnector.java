@@ -70,6 +70,22 @@ public class mySQLConnector extends AbstractDatabaseConnector {
             System.out.println("Error: cannot execute query: " + e.getMessage());
         }      
     }
+    
+    @Override
+    public ResultSet getResultSet(String query){
+        
+        ResultSet rs = null;
+                    
+        try {
+            Statement stmt = conn.createStatement();
+            //stmt.execute(query + ";");
+            rs = stmt.executeQuery(query + ";");
+            
+        } catch (Exception e) {
+            System.out.println("Error: cannot execute query: " + e.getMessage());
+        }    
+        return rs;
+    }    
 
      /**
      * Closing connction to the MySQL server 
