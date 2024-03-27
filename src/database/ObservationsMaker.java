@@ -26,17 +26,23 @@ public class ObservationsMaker {
 
     private static BufferedReader inputFileName;
     private static BufferedWriter outputFileName;
+    private boolean verboseMode = false;
+    
     
     private static String[] cources;
     
     public void generateData(){
         load_cource_names();
     }
+
+    public void insertGeneratedDataToDatabase(){
+        //ToDo
+    }
     
     private void load_cource_names(){
-        System.out.print("Loading cources... ");
-        cources = readStringsFromFile("dataset/dataset_programmes.csv");
-        System.out.println( cources.length + " done");
+        if (verboseMode) System.out.print("Loading cources... ");
+        cources = readStringsFromFile("dataset/dataset_programmes.txt");
+        if (verboseMode) System.out.println( cources.length + " done");
     }
     
     private int randomRangeRandom(int start, int end) {

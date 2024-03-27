@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS lecturers (
     fullname VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
 	type VARCHAR(255) NOT NULL,
-	UNIQUE KEY (email)
+	UNIQUE KEY (fullname)
 );
 
 /**
@@ -67,6 +67,9 @@ CREATE TABLE IF NOT EXISTS students (
 	UNIQUE KEY (fullname)
 );
 
+/**
+* Create table "enrollments" it holds info of enrollments
+*/
 CREATE TABLE IF NOT EXISTS enrollments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -76,6 +79,9 @@ CREATE TABLE IF NOT EXISTS enrollments (
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
+/**
+* Create table "grades" it holds info of grades
+*/
 CREATE TABLE IF NOT EXISTS grades (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -87,6 +93,9 @@ CREATE TABLE IF NOT EXISTS grades (
     FOREIGN KEY (module_id) REFERENCES modules(id)
 );
 
+/**
+* Create table "feedbacks" it holds info of feedbacks
+*/
 CREATE TABLE IF NOT EXISTS feedbacks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -96,3 +105,13 @@ CREATE TABLE IF NOT EXISTS feedbacks (
     FOREIGN KEY (student_id) REFERENCES students(id),
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
+
+/**
+* Check if database 'cms' exists:
+* If exists it returns a value greater than 0
+* Usage of aggregator COUNT: 
+* it calculates the total count of rows in the current SCHEMA
+*/
+SELECT COUNT(*) as count
+FROM information_schema.SCHEMATA
+WHERE SCHEMA_NAME = 'cms';

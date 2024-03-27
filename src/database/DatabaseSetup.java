@@ -24,6 +24,7 @@ public class DatabaseSetup {
     
     private DatabaseInterface database;
     private Config config;
+    private boolean isNewDatabase = false;
     
     private String[] queries = {
             "CREATE TABLE IF NOT EXISTS courses (" +
@@ -88,7 +89,15 @@ public class DatabaseSetup {
                 "`text` TEXT," +
                 "FOREIGN KEY (student_id) REFERENCES students(id)," +
                 "FOREIGN KEY (course_id) REFERENCES courses(id)" +
-                ");"            
+                ");",
+            
+            "CREATE TABLE IF NOT EXISTS users (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(64) NOT NULL," +
+                "password VARCHAR(128) NOT NULL," +
+                "type INT NOT NULL DEFAULT '0'," +
+                "UNIQUE KEY (name)" +
+                ");"
     
     };
     
@@ -108,15 +117,28 @@ public class DatabaseSetup {
 
     /**
     * Create Database we need to work with
+    * Create tables
+    * if database is new:
+    * - add all required data
+    * - populate with random generated observations
     */ 
     private void createDataBase() {
         
         if (!isDataBaseExits(config.getDbName() )) {
             database.makeQuery("CREATE DATABASE IF NOT EXISTS " + config.getDbName());
-            database.makeQuery("USE " + config.getDbName());
-            createTables();
-        } else {
-            database.makeQuery("USE " + config.getDbName());
+            isNewDatabase = true;
+        }
+        database.makeQuery("USE " + config.getDbName());
+        createTables();
+        
+        
+        
+        if (isNewDatabase) {
+            
+            insertRequiredData();
+            
+            ObservationsMaker dataFiller = new ObservationsMaker();
+            dataFiller.generateData();
         }
         
     }
@@ -147,6 +169,15 @@ public class DatabaseSetup {
             System.out.println("Error, cannot execute Database query: " + e.getMessage());
         } 
         return (count != 0);
+    }
+
+    /**
+    * Add to database all required data
+    */    
+    private void insertRequiredData(){
+        // Add admin
+        database.makeQuery("INSERT INTO users (name, password, type) VALUES ('admin','" + config.getAdminPassword() + "',99)");
+        
     }
     
 }

@@ -37,6 +37,25 @@ public class Config {
     private String admin_password;
     
     private String menu_type;
+    
+    public enum outputType {
+        FILE,
+        CONSOLE,
+        DATABASE,
+        REST
+    }
+    
+    public enum userType {
+        ADMIN,
+        OFFICE,
+        LECTURER
+    }
+    
+    public String[] admin_permissions = {"create_user", "delete_user", "update_user"};
+    public String[] office_permissions = {"create_user", "delete_user", "update_user"};
+    public String[] lecturer_permissions = {"create_user", "delete_user", "update_user"};
+    
+            
 
     public String getAdminPassword() {
         return admin_password;
