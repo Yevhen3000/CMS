@@ -53,7 +53,8 @@ public class ObservationsMaker {
         make_random_lecturers("datasets/out_lecturers.csv", 100);
         make_random_modules("datasets/out_modules.csv", 100);
         make_random_feedbacks("datasets/out_feedbacks.csv", 100);
-        
+        make_random_enrollments("datasets/out_enrollments.csv", 100);
+        make_random_grades("datasets/out_grades.csv", 100);
         
     }
 
@@ -91,6 +92,77 @@ public class ObservationsMaker {
         if (verboseMode) System.out.println( names.length + " done");
     }     
 
+    private void make_random_grades(String fileName, int how_many_generate){
+                 
+        boolean in_progress = true;
+        int cnt = 0;
+        String delimiter = ";";
+        boolean first_line = true;
+
+        try {
+            outputFileName  = new BufferedWriter(new FileWriter(fileName, false ));
+            if (verboseMode) System.out.print("Generating grades... ");
+            while (in_progress) {
+
+                   int student_id = randomRangeRandom(1, 100);
+                   int module_id = randomRangeRandom(1, 100);
+                   int grade = randomRangeRandom(20, 100);
+                   
+                    if (first_line){ // Header
+                           outputFileName.write("student_id" + delimiter + "module_id" + delimiter + "grade\n" );
+                            first_line = false;
+                    }                    
+                    outputFileName.write( student_id + delimiter + module_id + delimiter + grade);
+                    cnt++;
+                    if (cnt>how_many_generate-1) {
+                        in_progress = false;
+                    } else {
+                        outputFileName.newLine();
+                    }
+               }        
+                outputFileName.close();
+            
+            } catch (Exception e) {
+                  System.out.println("Error: " + e.getMessage() );
+            }
+            System.out.println(cnt + " Done");
+    }    
+    
+    private void make_random_enrollments(String fileName, int how_many_generate){
+                 
+        boolean in_progress = true;
+        int cnt = 0;
+        String delimiter = ";";
+        boolean first_line = true;
+
+        try {
+            outputFileName  = new BufferedWriter(new FileWriter(fileName, false ));
+            if (verboseMode) System.out.print("Generating enrollments... ");
+            while (in_progress) {
+
+                   int student_id = randomRangeRandom(1, 100);
+                   int course_id = randomRangeRandom(1, 100);
+                   
+                    if (first_line){ // Header
+                           outputFileName.write("student_id" + delimiter + "course_id\n" );
+                            first_line = false;
+                    }                    
+                    outputFileName.write( student_id + delimiter + course_id );
+                    cnt++;
+                    if (cnt>how_many_generate-1) {
+                        in_progress = false;
+                    } else {
+                        outputFileName.newLine();
+                    }
+               }        
+                outputFileName.close();
+            
+            } catch (Exception e) {
+                  System.out.println("Error: " + e.getMessage() );
+            }
+            System.out.println(cnt + " Done");
+    }    
+    
     private void make_random_feedbacks(String fileName, int how_many_generate){
                  
         boolean in_progress = true;
@@ -103,8 +175,8 @@ public class ObservationsMaker {
             if (verboseMode) System.out.print("Generating feedbacks... ");
             while (in_progress) {
 
-                   int student_id = randomRangeRandom(0, 99);
-                   int course_id = randomRangeRandom(0, 99);
+                   int student_id = randomRangeRandom(1, 100);
+                   int course_id = randomRangeRandom(1, 100);
                    
                     if (first_line){ // Header
                            outputFileName.write("student_id" + delimiter + "course_id" + delimiter + "text\n" );
@@ -138,8 +210,8 @@ public class ObservationsMaker {
             if (verboseMode) System.out.print("Generating modules... ");
             while (in_progress) {
 
-                   int course_id = randomRangeRandom(0, 99);
-                   int lecturer_id = randomRangeRandom(0, 99);
+                   int course_id = randomRangeRandom(1, 100);
+                   int lecturer_id = randomRangeRandom(1, 100);
                    int room_int =  randomRangeRandom(100, 400);
                    String room = String.valueOf(room_int);
                    if (room_int>300) room = "online";

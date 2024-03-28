@@ -15,13 +15,13 @@ import java.sql.Statement;
  * @student sba23066
  */
 
-/**
+/*
 * This Class is to connect and work with a Postgre DataBase
 * Implementation of abstract class
 */
 public class PostgreSQLConnector extends AbstractDatabaseConnector {
 
-     /**
+     /*
      * Init PostgreSQL server variables
      *
      */
@@ -32,7 +32,7 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
         db_database = databasename;
     }
     
-     /**
+     /*
      * ToDo: 
      * Tries to connect to a PostgreSQL server
      * And keeps a connection open
@@ -51,7 +51,7 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
         }
     }
     
-     /**
+     /*
      * Execute a query to the PostgreSQL server
      * 
      * throws Exception if execution error occurs

@@ -1,27 +1,27 @@
 
-/**
+/*
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
  * @student sba23066
- * Integrated CA: a sample of  database structure fro CMS
+ * Integrated CA: a sample of  database structure from CMS
  */
 
-/**
+/*
 * Create a new DataBase if there is still no
 */
 CREATE DATABASE IF NOT EXISTS cms;
 
-/**
+/*
 * Choose new created DB to use
 */
 USE cms;
 
-/**
+/*
 * Delete DB - for Debug only
 * DROP DATABASE cms;
 */
 
-/**
+/*
 * Create table "courses" they hold modules
 */
 CREATE TABLE IF NOT EXISTS courses (
@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS courses (
     UNIQUE KEY (name)
 );
 
-/**
-* Create table "lecturers" they hold info of lecturer ))
+/*
+* Create table "lecturers" they hold info of lecturer
 */
 CREATE TABLE IF NOT EXISTS lecturers (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS lecturers (
 	UNIQUE KEY (fullname)
 );
 
-/**
+/*
 * Create table "modules" they hold info of subject
 */
 CREATE TABLE IF NOT EXISTS modules (
@@ -52,12 +52,10 @@ CREATE TABLE IF NOT EXISTS modules (
     lecturer_id INT,
     room VARCHAR(8),
     semester INT,
-	UNIQUE KEY (name),
-    FOREIGN KEY (course_id) REFERENCES courses(id),
-    FOREIGN KEY (lecturer_id) REFERENCES lecturers(id)
+	UNIQUE KEY (name)
 );
 
-/**
+/*
 * Create table "students" they hold info of student
 */
 CREATE TABLE IF NOT EXISTS students (
@@ -67,19 +65,17 @@ CREATE TABLE IF NOT EXISTS students (
 	UNIQUE KEY (fullname)
 );
 
-/**
+/*
 * Create table "enrollments" it holds info of enrollments
 */
 CREATE TABLE IF NOT EXISTS enrollments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     student_id INT,
-    course_id INT,
-    FOREIGN KEY (student_id) REFERENCES students(id),
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    course_id INT
 );
 
-/**
+/*
 * Create table "grades" it holds info of grades
 */
 CREATE TABLE IF NOT EXISTS grades (
@@ -88,12 +84,10 @@ CREATE TABLE IF NOT EXISTS grades (
     student_id INT,
 	module_id INT,
     grade INT,
-    CHECK (grade >= 0 AND grade <= 100),
-    FOREIGN KEY (student_id) REFERENCES students(id),
-    FOREIGN KEY (module_id) REFERENCES modules(id)
+    CHECK (grade >= 0 AND grade <= 100)
 );
 
-/**
+/*
 * Create table "feedbacks" it holds info of feedbacks
 */
 CREATE TABLE IF NOT EXISTS feedbacks (
@@ -101,12 +95,50 @@ CREATE TABLE IF NOT EXISTS feedbacks (
     `dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     student_id INT,
     course_id INT,
-	`text` TEXT,
-    FOREIGN KEY (student_id) REFERENCES students(id),
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+	`text` TEXT
 );
 
-/**
+
+/*
+* At this step I import all .csv files generated in the JAVA app
+* (in logic order) first courses, 
+* then modules, lectures, students, enrollments, grades, feedbacks
+*/
+
+
+/*
+* Adding foreing keys to 'modules' table after import
+* FOREIGN KEY (course_id) REFERENCES courses(id),
+* FOREIGN KEY (lecturer_id) REFERENCES lecturers(id)
+*/
+ALTER TABLE modules ADD FOREIGN KEY (course_id) REFERENCES courses(id);
+ALTER TABLE modules ADD FOREIGN KEY (lecturer_id) REFERENCES lecturers(id);
+
+/*
+* Adding foreing keys to 'enrollments' table after import
+* FOREIGN KEY (student_id) REFERENCES students(id),
+* FOREIGN KEY (course_id) REFERENCES courses(id)
+*/
+ALTER TABLE enrollments ADD FOREIGN KEY (student_id) REFERENCES  students(id);
+ALTER TABLE enrollments ADD FOREIGN KEY (course_id) REFERENCES courses(id);
+
+/*
+* Adding foreing keys to 'grades' table after import
+* FOREIGN KEY (student_id) REFERENCES students(id),
+* FOREIGN KEY (module_id) REFERENCES modules(id)
+*/
+ALTER TABLE grades ADD FOREIGN KEY (student_id) REFERENCES  students(id);
+ALTER TABLE grades ADD FOREIGN KEY (module_id) REFERENCES modules(id);
+
+/*
+* Adding foreing keys to 'feedbacks' table after import
+* FOREIGN KEY (student_id) REFERENCES students(id),
+* FOREIGN KEY (course_id) REFERENCES courses(id)
+*/
+ALTER TABLE feedbacks ADD FOREIGN KEY (student_id) REFERENCES  students(id);
+ALTER TABLE feedbacks ADD FOREIGN KEY (course_id) REFERENCES courses(id);
+
+/*
 * Check if database 'cms' exists:
 * If exists it returns a value greater than 0
 * Usage of aggregator COUNT: 
