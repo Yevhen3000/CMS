@@ -138,6 +138,7 @@ ALTER TABLE grades ADD FOREIGN KEY (module_id) REFERENCES modules(id);
 ALTER TABLE feedbacks ADD FOREIGN KEY (student_id) REFERENCES  students(id);
 ALTER TABLE feedbacks ADD FOREIGN KEY (course_id) REFERENCES courses(id);
 
+
 /*
 * Check if database 'cms' exists:
 * If exists it returns a value greater than 0
@@ -147,3 +148,42 @@ ALTER TABLE feedbacks ADD FOREIGN KEY (course_id) REFERENCES courses(id);
 SELECT COUNT(*) as count
 FROM information_schema.SCHEMATA
 WHERE SCHEMA_NAME = 'cms';
+
+
+/*
+* Get all students, their number and course title they enrolled
+*/
+SELECT s.fullname, s.number as student_number, c.name as course_name
+FROM enrollments e
+JOIN students s on e.student_id = s.id
+JOIN courses c on e.course_id = c.id
+GROUP BY s.number, c.name, s.fullname;
+
+
+/*
+* Get students and their module name who didnt pass (grade < 40%)
+*/
+SELECT s.fullname, s.number as student_number, m.name as module_name, g.grade
+FROM grades g
+JOIN students s on g.student_id = s.id
+JOIN modules m on g.module_id = m.id
+WHERE g.grade < 40
+GROUP BY s.number, m.name, s.fullname, g.grade
+ORDER BY g.grade ASC;
+
+
+/*
+* Get average grades per each module
+*/
+SELECT m.name as module_name, AVG(g.grade) AS avg_grade
+FROM grades g
+JOIN modules m on g.module_id = m.id
+GROUP BY m.name, g.grade;
+
+/*
+* Set student's grade to 78% and while setting no one else can write to database
+*/
+LOCK TABLES grades WRITE;
+UPDATE grades SET grade = 78 WHERE student_id = 67 AND module_id = 97;
+UNLOCK TABLES;
+COMMIT;

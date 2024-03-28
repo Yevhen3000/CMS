@@ -21,9 +21,10 @@ public class DatabaseController {
     */    
 
     public DatabaseInterface db;
+    private Config config;
 
     public DatabaseController( Config appConfig) {
-        
+        config = appConfig;
         /**
         * Creates database object depending on which 
         * database engin shoosen in the Config file
@@ -37,18 +38,19 @@ public class DatabaseController {
         
         switch (DataBaseEngine) {
           case "mysql": 
-              db = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
+              db = new mySQLConnector(appConfig);
               break;
 
           case "postgresql": 
-              db = new PostgreSQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
+              db = new PostgreSQLConnector(appConfig);
               break;
 
           default:     
-              db = new mySQLConnector(appConfig.getUrlHost(), appConfig.getUser(), appConfig.getPassword(), appConfig.getDbName());
+              db = new mySQLConnector(appConfig);
         }
 
         db.connect();
+        config.db = db;
     }
 
     public void setActiveDatabase(String databaseName){
@@ -70,5 +72,5 @@ public class DatabaseController {
         */        
         db.disconnect();
     }
-    
+
 }

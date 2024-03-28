@@ -4,7 +4,7 @@
  */
 package database;
 
-import java.sql.Connection;
+import cms.Config;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -25,11 +25,11 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
      * Init PostgreSQL server variables
      *
      */
-    public PostgreSQLConnector(String url, String user, String password, String databasename){
-        db_url = url;
-        db_user = user;
-        db_password = password;
-        db_database = databasename;
+    public PostgreSQLConnector(Config appConfig){
+        db_url = appConfig.getUrlHost();
+        db_user = appConfig.getUser();
+        db_password = appConfig.getPassword();
+        db_database = appConfig.getDbName();
     }
     
      /*

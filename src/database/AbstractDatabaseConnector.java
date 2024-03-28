@@ -24,7 +24,7 @@ abstract class AbstractDatabaseConnector implements DatabaseInterface{
     public String db_password;
     public String db_database;
     public String database_type;
-       
+      
     
    @Override
     public void connect() {

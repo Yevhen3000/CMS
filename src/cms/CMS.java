@@ -4,6 +4,7 @@
  */
 package cms;
 
+import Menu.MenuController;
 import Server.HttpServer;
 import cms.Config.userType;
 import database.DatabaseSetup;
@@ -36,7 +37,7 @@ public class CMS {
     
     public static void main(String[] args) {
                 
-        /**
+        /*
         * Load config from file "cms.config.json"
         * and parse it to use in the entire app
         */
@@ -46,31 +47,24 @@ public class CMS {
         appConfig.Init();
         logToConsole("Done", true);
         
-        /**
+        /*
         * Connects to database depending on the config
         */
         logToConsole("Initializing database engine... ", false);
         DatabaseController dbCtrl = new DatabaseController( appConfig );
         logToConsole("Done", true);
         
-        /**
+        /*
         * Set up database and tables
         */                
         logToConsole("Setting up database and tables... ", false);
-        DatabaseSetup dbSet = new DatabaseSetup(dbCtrl.db, appConfig );
+        DatabaseSetup dbSet = new DatabaseSetup(appConfig );
         dbSet.Init();
         logToConsole("Done", true);
 
-        User admin = new User(appConfig);
-        admin.Add("admin", appConfig.getAdminPassword() ,userType.ADMIN, false);
-        UserPermissions userPermissions = new UserPermissions(appConfig);
         
-//        // Expose the server to: http://127.0.0.1:8080/
-//        HttpServer srv = new HttpServer(appConfig);
-//        srv.start();
-        
-//        ObservationsMaker dataGen = new ObservationsMaker();
-//        dataGen.generateData();
+        MenuController menuCtrl = new MenuController(appConfig);
+        menuCtrl.menu.showMenu();
         
         //System.out.println("add_user:" + userPermissions.hasPermission(admin, "add_user"));
         
@@ -80,20 +74,14 @@ public class CMS {
         //Security sec = new Security();
         //System.out.println(sec.hashPassword("java"));
         //System.out.println(sec.verifyPassword("java",appConfig.getAdminPassword()));
-        
-        
-        /**
-        * ToDO:
-        * Fill tables with observations
-        */
 
         
-        /**
+        /*
         * ToDO:
         * Launch app menu.
         */                                
         
-        /**
+        /*
         * Shutdown our app
         */                        
         dbCtrl.DatabaseStop();

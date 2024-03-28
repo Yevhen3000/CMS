@@ -106,8 +106,8 @@ public class DatabaseSetup {
     * and all tables we need to work with
     * 
     */
-    public DatabaseSetup(DatabaseInterface db, Config appConfig ){
-        database = db;
+    public DatabaseSetup( Config appConfig ){
+        database = appConfig.db;
         config = appConfig;
     }
     

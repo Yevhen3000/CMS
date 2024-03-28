@@ -4,7 +4,9 @@
  */
 package Menu;
 
+import cms.Config;
 import interfaces.MenuInterface;
+import users.User;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -17,8 +19,9 @@ import interfaces.MenuInterface;
 */
 public class AbstractMenu implements MenuInterface {
 
-    public String current_item;
-       
+    public String currentItem;
+    public User currentUser = null;
+    public Config appConfig;
     
     @Override
     public void showMenu() {

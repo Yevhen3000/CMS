@@ -4,6 +4,8 @@
  */
 package Menu;
 
+import cms.Config;
+
 /**
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
@@ -14,6 +16,10 @@ package Menu;
 * Abstract Class is to implement Web based menu UI
 */
 public class MenuHttp extends AbstractMenu{
+    
+    public MenuHttp(Config appConfig){
+        this.appConfig = appConfig;
+    }    
     
     @Override
     public void showMenu() {

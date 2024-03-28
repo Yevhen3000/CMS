@@ -26,10 +26,14 @@ public class MenuController {
         String menu_type = appConfig.getMenuType().toLowerCase();
         
         menu = switch (menu_type) {
-            case "console" -> new MenuConsole();
-            case "web" -> new MenuHttp();
-            default -> new MenuConsole();
+            case "console" -> new MenuConsole(appConfig);
+            case "web" -> new MenuHttp(appConfig);
+            default -> new MenuConsole(appConfig);
         };        
+        
+        //        Expose the server to: http://127.0.0.1:8080/
+        //        HttpServer srv = new HttpServer(appConfig);
+        //        srv.start();
     
     }
 }

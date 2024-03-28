@@ -8,9 +8,11 @@ package cms;
  * Downloaded library for JSON from here:
  * https://code.google.com/archive/p/json-simple/downloads 
  */
+import interfaces.DatabaseInterface;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -39,6 +41,8 @@ public class Config {
     public String http_server_ip;
     public int http_server_port;
     
+   public DatabaseInterface db;
+    
     
     private String menu_type;
     
@@ -47,6 +51,12 @@ public class Config {
         CONSOLE,
         DATABASE,
         REST
+    }
+    
+    public enum outputFormat {
+        TXT,
+        CVS,
+        JSON
     }
     
     public enum userType {
