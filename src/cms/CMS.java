@@ -69,8 +69,8 @@ public class CMS {
 //        HttpServer srv = new HttpServer(appConfig);
 //        srv.start();
         
-        ObservationsMaker dataGen = new ObservationsMaker();
-        dataGen.generateData();
+//        ObservationsMaker dataGen = new ObservationsMaker();
+//        dataGen.generateData();
         
         //System.out.println("add_user:" + userPermissions.hasPermission(admin, "add_user"));
         

@@ -132,7 +132,7 @@ public class DatabaseSetup {
         createTables();
         
         if (isNewDatabase) {
-            
+            System.out.println("isNewDatabase:" + isNewDatabase);
             insertRequiredData();
             
             ObservationsMaker dataFiller = new ObservationsMaker();

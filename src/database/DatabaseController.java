@@ -13,20 +13,25 @@ import interfaces.DatabaseInterface;
  * @student sba23066
  */
 
-/**
-* This Class is to work with database engine more agile
-* It initializes a connection to DataBase choosen in config
-*/
+
 public class DatabaseController {
+    /**
+    * This Class is to work with database engine more agile
+    * It initializes a connection to DataBase choosen in config
+    */    
 
     public DatabaseInterface db;
 
-    /**
-    * Init Database connection depends on config
-    * By default mySQL server type
-    * 
-    */    
     public DatabaseController( Config appConfig) {
+        
+        /**
+        * Creates database object depending on which 
+        * database engin shoosen in the Config file
+        * By default mySQL server type
+        * 
+        * @param Config is an instance of app config
+        * @return Returns nothing
+        */
         
         String DataBaseEngine = appConfig.getDbType().toLowerCase();
         
@@ -46,13 +51,23 @@ public class DatabaseController {
         db.connect();
     }
 
-    // Set current database
     public void setActiveDatabase(String databaseName){
+        /**
+        * Sets active database
+        * 
+        * @param databaseName (String) is a database name to set active
+        * @return Returns nothing
+        */
         db.makeQuery("USE " + databaseName + ";");
     }
     
-    // Close connection to the database
     public void DatabaseStop(){
+        /**
+        * Closes connection to database
+        * 
+        * @param No params
+        * @return Returns nothing
+        */        
         db.disconnect();
     }
     
