@@ -12,6 +12,7 @@ import java.util.Scanner;
 import users.User;
 import users.UserPermissions;
 import cms.Config.userType;
+import database.DataProcessor;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -37,18 +38,19 @@ public class MenuConsole extends AbstractMenu{
     public void showMenu() {
          
         // Debug 
-        User currentUser = new User(appConfig);
-        currentUser.Add("admin", appConfig.getAdminPassword(), userType.ADMIN , false );
+        appConfig.currentUser = new User(appConfig);
+        //appConfig.currentUser.Add("admin", appConfig.getAdminPassword(), userType.ADMIN , false );
+        //appConfig.currentUser.Add("lecturer", "pass", userType.LECTURER, true );
+        appConfig.currentUser.Add("office", "pass", userType.OFFICE, true );
                 
-        if (currentUser == null) {
-            ShowLogin();
-            return;
+        if (appConfig.currentUser == null) {
+            do {
+                // Do while user enters
+            } while(!UserLogin());
         }
         
         if (menuList.isEmpty()) InitUserMenu();
-        ShowUserMenu();
-        //MenuMainLoop();
-        
+        MainMenuLoop();
     }
 
     @Override
@@ -56,7 +58,7 @@ public class MenuConsole extends AbstractMenu{
         // Hide menu
     }
     
-    public boolean ShowLogin(){
+    public boolean UserLogin(){
         boolean loginOK = false;
         
         System.out.println("=== Login menu ===");
@@ -71,14 +73,69 @@ public class MenuConsole extends AbstractMenu{
         return loginOK;
     }
     
-    public void ShowUserMenu(){
+    public void MainMenuLoop(){
+        String choice;
+        boolean  inLoop = true;
+        Scanner sc  = new Scanner(System.in);
+
+        while (inLoop) {
+            ShowUserMenu();
+            try {
+                if (sc.hasNext()) {
+                    choice = sc.nextLine();
+                    int menuValue = Integer.parseInt(choice);
+                    if (menuValue==0) {
+                        inLoop=false;
+                    } else {
+                       if (!MenuDispatcher(menuValue)) System.out.println("Invalid command!");
+                    }
+                }
+            } catch (Exception e){
+                System.out.println("Invalid command!");
+            }                   
+        }
+
+    }
+    
+    private boolean MenuDispatcher(int menuValue){
+        
+        boolean returnVal = true;
+        if (menuValue > menuAction.size()) return false;
+        
+        DataProcessor generator =  new DataProcessor(appConfig);
+        
+        switch (menuAction.get(menuValue-1)) {
+            case "add_user":
+                break;
+            case "modify_user":
+                break;
+            case "delete_user":
+                break;
+            case "can_change_own":
+                break;
+            case "report_course":
+                generator.GenerateCourseReport();
+                break;
+            case "report_student":
+                break;
+            case "report_lecturer":
+                break;
+            case "report_lecturer_own":
+                break;
+        }
+
+        return returnVal;
+    }
+    
+    private void ShowUserMenu(){
         for (String item : menuList) {
             System.out.println(item);
         }
+        System.out.println("Please, enter the menu command number:"); 
     }
     
     public void InitUserMenu(){
-        if (currentUser == null) {
+        if (appConfig.currentUser == null) {
             System.out.println("Error: user is not authorized");
             return;
         }
@@ -89,15 +146,15 @@ public class MenuConsole extends AbstractMenu{
         
         MenuBuildItem("","#################### MENU ##################");
         MenuBuildItem("","#                                          #");
-        MenuBuildItem("add_user","#             Add new user                   #");
-        MenuBuildItem("modify_user","#             Modify user                   #");
-        MenuBuildItem("delete_user","#             Delete user                   #");
-        MenuBuildItem("can_change_own","#             Change credencials                   #");
-        MenuBuildItem("report_all","#             Generate Course Report                   #");
-        MenuBuildItem("report_all","#             Generate Student Report                   #");
-        MenuBuildItem("report_all","#             Generate Lecturer Report                   #");
-        MenuBuildItem("report_lecturer_own","#             Generate my Lecturer Report                   #");
-        MenuBuildItem("","#  [0] Exit                                #");
+        MenuBuildItem("add_user","   Add new user                      #");
+        MenuBuildItem("modify_user","   Modify user                       #");
+        MenuBuildItem("delete_user","   Delete user                       #");
+        MenuBuildItem("can_change_own","   Change credencials                #");
+        MenuBuildItem("report_course","   Generate Course Report            #");
+        MenuBuildItem("report_student","   Generate Student Report           #");
+        MenuBuildItem("report_lecturer","   Generate Lecturer Report          #");
+        MenuBuildItem("report_lecturer_own","   Generate my Lecturer Report       #");
+        MenuBuildItem("","#  [0]   Exit                              #");
         MenuBuildItem("","#                                          #");
         MenuBuildItem("","############################################");
    
@@ -107,8 +164,8 @@ public class MenuConsole extends AbstractMenu{
         if (userPermission.isEmpty()) {
             menuList.add(menuTitle);
         } else {
-            if (userPerm.hasPermission(currentUser, userPermission)) {
-                menuList.add("#  ["+menuCounter+"] " + menuTitle);
+            if (userPerm.hasPermission(appConfig.currentUser, userPermission)) {
+                menuList.add("#  ["+menuCounter+"]" + menuTitle);
                 menuAction.add(userPermission);
                 menuCounter++;
             }            

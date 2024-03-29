@@ -5,14 +5,8 @@
 package cms;
 
 import Menu.MenuController;
-import Server.HttpServer;
-import cms.Config.userType;
 import database.DatabaseSetup;
 import database.DatabaseController;
-import database.ObservationsMaker;
-import interfaces.DatabaseInterface;
-import users.User;
-import users.UserPermissions;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -20,20 +14,12 @@ import users.UserPermissions;
  * @student sba23066
  */
 
-/**
-* This Class is an entry point of this app
-*/
 public class CMS {
-
-    /*
-    * Variable holds object of database engin
+    /**
+    * This Class is an entry point of this app
     */
-    public static DatabaseInterface db;
 
-    /*
-    * Variable holds wether to show user process 
-    */
-    private static boolean verbose_output = true;
+    private static Config appConfig;
     
     public static void main(String[] args) {
                 
@@ -41,10 +27,10 @@ public class CMS {
         * Load config from file "cms.config.json"
         * and parse it to use in the entire app
         */
-        
-        logToConsole("Loading config... ", false);
-        Config appConfig = new Config();
+        System.out.print("Loading config... ");
+        appConfig = new Config();
         appConfig.Init();
+        appConfig.verbose_output = true;
         logToConsole("Done", true);
         
         /*
@@ -62,35 +48,22 @@ public class CMS {
         dbSet.Init();
         logToConsole("Done", true);
 
-        
+        /*
+        * Launch application menu.
+        */         
         MenuController menuCtrl = new MenuController(appConfig);
         menuCtrl.menu.showMenu();
-        
-        //System.out.println("add_user:" + userPermissions.hasPermission(admin, "add_user"));
-        
-        //dbCtrl.setActiveDatabase(appConfig.getDbName());
-        //dbSet.createTables();
-
-        //Security sec = new Security();
-        //System.out.println(sec.hashPassword("java"));
-        //System.out.println(sec.verifyPassword("java",appConfig.getAdminPassword()));
-
-        
-        /*
-        * ToDO:
-        * Launch app menu.
-        */                                
-        
+  
         /*
         * Shutdown our app
         */                        
         dbCtrl.DatabaseStop();
-        System.out.println("Exit.");
+        if (appConfig.verbose_output) System.out.println("Exit.");
         
     }
     
     private static void logToConsole(String message, boolean newLine){
-        if (verbose_output) {
+        if (appConfig.verbose_output) {
             if (newLine) {
                 System.out.println(message);
             } else {

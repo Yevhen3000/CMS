@@ -33,3 +33,6 @@ public class MenuHttp extends AbstractMenu{
         throw new UnsupportedOperationException("Not supported yet.");
     }      
 }
+        //        Expose the server to: http://127.0.0.1:8080/
+        //        HttpServer srv = new HttpServer(appConfig);
+        //        srv.start();

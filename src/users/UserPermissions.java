@@ -29,7 +29,7 @@ public class UserPermissions {
         // Define permissions for each role
         permissionsMap.put(userType.ADMIN, config.admin_permissions);
         permissionsMap.put(userType.OFFICE, config.office_permissions);
-        permissionsMap.put(userType.LECTURER, config.office_permissions);
+        permissionsMap.put(userType.LECTURER, config.lecturer_permissions);
     }
 
     // Method to check if a user has permission to perform a certain action

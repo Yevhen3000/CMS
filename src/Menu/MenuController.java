@@ -30,10 +30,6 @@ public class MenuController {
             case "web" -> new MenuHttp(appConfig);
             default -> new MenuConsole(appConfig);
         };        
-        
-        //        Expose the server to: http://127.0.0.1:8080/
-        //        HttpServer srv = new HttpServer(appConfig);
-        //        srv.start();
-    
+ 
     }
 }

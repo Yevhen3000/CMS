@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import users.User;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -41,10 +42,11 @@ public class Config {
     public String http_server_ip;
     public int http_server_port;
     
-   public DatabaseInterface db;
-    
-    
+    public DatabaseInterface db;
+    public boolean verbose_output;
+        
     private String menu_type;
+    public User currentUser = null;
     
     public enum outputType {
         FILE,
@@ -66,7 +68,7 @@ public class Config {
     }
     
     public String[] admin_permissions = {"add_user", "modify_user", "delete_user", "can_change_own" };
-    public String[] office_permissions = {"report_all", "can_change_own"};
+    public String[] office_permissions = {"report_course", "report_student", "report_lecturer","can_change_own"};
     public String[] lecturer_permissions = {"report_lecturer_own", "can_change_own"};
 
     public String getAdminPassword() {
