@@ -15,5 +15,7 @@ package interfaces;
 * such as "A txt file", "A csv file", "Output to the NetBeans Console"
 */
 public interface DataOutputInterface {
-    //ToDO
+    void GenerateCourseReport();
+    void GenerateStudentReport();
+    void GenerateLecturerReport();
 }

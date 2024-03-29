@@ -12,7 +12,8 @@ import java.util.Scanner;
 import users.User;
 import users.UserPermissions;
 import cms.Config.userType;
-import database.DataProcessor;
+import database.DataProcessorController;
+import interfaces.DataOutputInterface;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -91,7 +92,7 @@ public class MenuConsole extends AbstractMenu{
                     }
                 }
             } catch (Exception e){
-                System.out.println("Invalid command!");
+                System.out.println("Error: " + e.getMessage());
             }                   
         }
 
@@ -102,7 +103,7 @@ public class MenuConsole extends AbstractMenu{
         boolean returnVal = true;
         if (menuValue > menuAction.size()) return false;
         
-        DataProcessor generator =  new DataProcessor(appConfig);
+        DataOutputInterface generator = new DataProcessorController().SetDataOutput(appConfig);
         
         switch (menuAction.get(menuValue-1)) {
             case "add_user":
@@ -117,10 +118,13 @@ public class MenuConsole extends AbstractMenu{
                 generator.GenerateCourseReport();
                 break;
             case "report_student":
+                generator.GenerateStudentReport();
                 break;
             case "report_lecturer":
+                generator.GenerateLecturerReport();
                 break;
             case "report_lecturer_own":
+                generator.GenerateLecturerReport();
                 break;
         }
 
@@ -135,16 +139,21 @@ public class MenuConsole extends AbstractMenu{
     }
     
     public void InitUserMenu(){
+        /**
+        * Creates 
+        * @param message - a promt string for user
+        * @return Returns a string from console input
+        */        
+        
         if (appConfig.currentUser == null) {
             System.out.println("Error: user is not authorized");
             return;
         }
-
-        
+       
         menuCounter = 1;
         userPerm = new UserPermissions(appConfig);
         
-        MenuBuildItem("","#################### MENU ##################");
+        MenuBuildItem("","#################   MENU  ##################");
         MenuBuildItem("","#                                          #");
         MenuBuildItem("add_user","   Add new user                      #");
         MenuBuildItem("modify_user","   Modify user                       #");

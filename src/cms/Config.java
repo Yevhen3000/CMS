@@ -45,7 +45,8 @@ public class Config {
     public DatabaseInterface db;
     public boolean verbose_output;
         
-    private String menu_type;
+    public String output_type;
+    public String input_type;
     public User currentUser = null;
     
     public enum outputType {
@@ -96,7 +97,7 @@ public class Config {
     }    
 
     public String getMenuType() {
-        return menu_type;
+        return input_type;
     }   
     
      /**
@@ -118,7 +119,8 @@ public class Config {
             database_name = (String) jsonConfigObject.get("database_name");
             db_type = (String) jsonConfigObject.get("database_type");
             
-            menu_type = (String) jsonConfigObject.get("menu_type");
+            input_type = (String) jsonConfigObject.get("input_type");
+            output_type = (String) jsonConfigObject.get("output_type");
             admin_password = (String) jsonConfigObject.get("admin_password");
             
             http_server_ip = (String) jsonConfigObject.get("http_server_ip");

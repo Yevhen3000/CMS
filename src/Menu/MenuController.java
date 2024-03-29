@@ -27,7 +27,7 @@ public class MenuController {
         
         menu = switch (menu_type) {
             case "console" -> new MenuConsole(appConfig);
-            case "web" -> new MenuHttp(appConfig);
+            case "api" -> new MenuHttp(appConfig);
             default -> new MenuConsole(appConfig);
         };        
  
