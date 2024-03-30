@@ -249,3 +249,14 @@ GROUP BY
     UPDATE users set `password` = 'W0JAMTg2Zjg3MTY=:UNCxu94RX8w4I1hGSoxo6MbpQCwBlLywQMJ/MMvXGsU=' WHERE name='admin';
     
     INSERT INTO users (name, password, type) VALUES ('admin','9HOHOreTq+ISOQGcFPYnbQ==:dBUlbyqsYl6x3zKyliWOiTVTN6Qi2NjVw5r+DmG3w1Y=',99);
+    
+    
+SELECT l.fullname AS lecturer_name, l.role AS lecturer_role,
+    GROUP_CONCAT(DISTINCT m.name ORDER BY m.name ASC SEPARATOR ', ') AS taught_modules,
+    COUNT(DISTINCT e.student_id) AS enrolled_students,
+    GROUP_CONCAT(DISTINCT m.room ORDER BY m.room ASC SEPARATOR ', ') AS classes_taught
+FROM lecturers l
+JOIN modules m ON l.id = m.lecturer_id
+LEFT JOIN enrollments e ON m.id = e.course_id
+WHERE l.id = 1
+GROUP BY l.fullname, l.role;		

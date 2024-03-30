@@ -70,4 +70,8 @@ abstract public class AbstractDataProcessor implements DataOutputInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    @Override
+    public void GenerateLecturerReportOwn(){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

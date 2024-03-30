@@ -14,14 +14,15 @@ import users.User;
  * @student sba23066
  */
 
+
+public class AbstractMenu implements MenuInterface {
 /**
 * Abstract Class is to implement different menu UI
 */
-public class AbstractMenu implements MenuInterface {
-
+    
     public String currentItem;
     public User currentUser = null;
-    public Config appConfig;
+    public Config app;
     
     @Override
     public void showMenu() {

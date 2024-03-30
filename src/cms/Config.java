@@ -70,7 +70,7 @@ public class Config {
         LECTURER
     }
     
-    public String[] admin_permissions = {"add_user", "modify_user", "delete_user", "can_change_own" };
+    public String[] admin_permissions = {"list_users", "add_user", "modify_user", "delete_user", "can_change_own" };
     public String[] office_permissions = {"report_course", "report_student", "report_lecturer","can_change_own"};
     public String[] lecturer_permissions = {"report_lecturer_own", "can_change_own"};
 

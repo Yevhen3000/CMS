@@ -36,7 +36,6 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         ResultSet rs;
         int lineCount = 1;
         String formatString = "%-4s | %-20s | %-20s | %-85s | %-10s\n";
-        //lecturer_name| lecturer_role | taught_modules | enrolled_students | classes_taught
         rs = config.db.getResultSet(queryLecturerReport);
         try {
             // Table header
@@ -66,6 +65,54 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
             System.out.println("Error: " + e.getMessage());
         }        
     }    
+
+    @Override
+    public void GenerateLecturerReportOwn(){
+        
+        ResultSet rs;
+        int lineCount = 1;
+        String formatString = "%-4s | %-20s | %-20s | %-85s | %-10s\n";
+        
+        String queryLecturerReportOwn = "SELECT l.fullname AS lecturer_name, l.role AS lecturer_role, " +
+            "GROUP_CONCAT(DISTINCT m.name ORDER BY m.name ASC SEPARATOR ', ') AS taught_modules, " +
+            "COUNT(DISTINCT e.student_id) AS enrolled_students, " +
+            "GROUP_CONCAT(DISTINCT m.room ORDER BY m.room ASC SEPARATOR ', ') AS classes_taught " +
+        "FROM lecturers l " +
+        "JOIN modules m ON l.id = m.lecturer_id " +
+        "LEFT JOIN enrollments e ON m.id = e.course_id " +
+        "WHERE l.id = " + config.currentUser.getUserId() + " GROUP BY l.fullname, l.role;";
+
+        rs = config.db.getResultSet(queryLecturerReportOwn);
+        try {
+            // Table header
+            String headerString = String.format(formatString,
+            "#",        
+            "lecturer_name",
+            "lecturer_role",
+            "taught_modules",
+            "classes_taught");
+            String underline = "_".repeat(headerString.length()+ 2);
+            System.out.print("Student Report:\n" + underline + "\n" + headerString + "\n" + underline + "\n" );
+            
+            while (rs.next()) {
+     
+                System.out.printf(formatString,
+                lineCount,        
+                rs.getString("lecturer_name"),
+                rs.getString("lecturer_role"),
+                rs.getString("taught_modules"),
+                rs.getString("classes_taught"));
+               
+                lineCount++;
+            }
+            System.out.println(underline + "\nTotal records: " + (lineCount-1));
+            
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }        
+    }
+
+
     
     @Override
     public void GenerateStudentReport(){

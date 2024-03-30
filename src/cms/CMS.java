@@ -4,6 +4,7 @@
  */
 package cms;
 
+import Menu.MenuConsole;
 import Menu.MenuController;
 import database.DatabaseSetup;
 import database.DatabaseController;
@@ -52,7 +53,11 @@ public class CMS {
         * Launch application menu.
         */         
         MenuController menuCtrl = new MenuController(appConfig);
-        menuCtrl.menu.showMenu();
+        //menuCtrl.menu. .ShowUserList();
+        //menuCtrl.menu.showMenu();
+        
+        MenuConsole mm = new MenuConsole(appConfig);
+        mm.ShowUserList();
   
         /*
         * Shutdown our app

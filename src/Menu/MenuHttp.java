@@ -18,7 +18,7 @@ import cms.Config;
 public class MenuHttp extends AbstractMenu{
     
     public MenuHttp(Config appConfig){
-        this.appConfig = appConfig;
+        this.app = appConfig;
     }    
     
     @Override
@@ -34,5 +34,5 @@ public class MenuHttp extends AbstractMenu{
     }      
 }
         //        Expose the server to: http://127.0.0.1:8080/
-        //        HttpServer srv = new HttpServer(appConfig);
+        //        HttpServer srv = new HttpServer(app);
         //        srv.start();

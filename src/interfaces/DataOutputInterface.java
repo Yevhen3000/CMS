@@ -18,4 +18,5 @@ public interface DataOutputInterface {
     void GenerateCourseReport();
     void GenerateStudentReport();
     void GenerateLecturerReport();
+    void GenerateLecturerReportOwn();
 }
