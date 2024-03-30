@@ -48,6 +48,8 @@ public class PostgreSQLConnector extends AbstractDatabaseConnector {
             stmt.execute("USE " + db_database + ";");            
         } catch (Exception e) {
             System.out.println("Error: cannot connect to PostgreSQL: " + e.getMessage());
+            System.out.println("Critical Error. Exiting...");
+            System.exit(0);            
         }
     }
     

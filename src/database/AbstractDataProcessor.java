@@ -4,6 +4,7 @@
  */
 package database;
 
+import cms.Config;
 import interfaces.DataOutputInterface;
 
 /**
@@ -56,22 +57,22 @@ abstract public class AbstractDataProcessor implements DataOutputInterface{
     "GROUP BY l.fullname, l.role"; 
     
     @Override
-    public void GenerateCourseReport() {
+    public void GenerateCourseReport(Config.outputFormat  outputFormat) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void GenerateStudentReport() {
+    public void GenerateStudentReport(Config.outputFormat  outputFormat) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void GenerateLecturerReport() {
+    public void GenerateLecturerReport(Config.outputFormat  outputFormat) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
-    public void GenerateLecturerReportOwn(){
+    public void GenerateLecturerReportOwn(Config.outputFormat  outputFormat){
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -31,6 +31,8 @@ public class MenuConsole extends AbstractMenu{
     private UserPermissions userPerm;
     private int menuCounter = 1;
     
+    private Config.outputFormat outFormat;
+       
     public MenuConsole(Config appConfig){
         /**
         * Initialization
@@ -106,9 +108,10 @@ public class MenuConsole extends AbstractMenu{
         for (String one : userList) {
             System.out.println();
             String lineString = String.format("%-1s %-3s %-20s %-1s", "| ", count, one, " |");
-            System.out.println(lineString);
+            System.out.print(lineString);
+            count++;
         }
-        System.out.println("==============================");
+        System.out.println("\n==============================");
     }
     
     public void UserDelete(){
@@ -176,7 +179,7 @@ public class MenuConsole extends AbstractMenu{
             return;
         }
         
-        String loginNew = getUserInput("Enter user's current login:");
+        String loginNew = getUserInput("Enter user's new login:");
         if (loginNew.isEmpty()) {
             System.out.println("Error: invalid user name");
             return;
@@ -190,6 +193,7 @@ public class MenuConsole extends AbstractMenu{
         
         String role = getUserInput("Enter new user role [admin or office or lecturer]:");
         Config.userType userRole = app.currentUser.StringToUserRole(role);
+        System.out.println(userRole);
         if (userRole==null) {
             System.out.println("Error: invalid user role");
             return;
@@ -231,6 +235,41 @@ public class MenuConsole extends AbstractMenu{
 
     }
     
+    private Config.outputFormat MenuOutputType(){
+    /**
+    * Shows a output type format of the report
+    */         
+        int count = 1;
+        System.out.print("======= Format output ========");
+        for (String oneFormat : app.output_formats) {
+            System.out.println();
+            String lineString = String.format("%-1s %-3s %-20s %-1s", "| ", count, oneFormat, " |");
+            System.out.println(lineString);
+        }
+        System.out.println("==============================");
+        String outType = getUserInput("Enter output type:");
+        if (outType.isEmpty()) {
+            System.out.println("Error: invalid type");
+            return null;
+        }                
+          
+        return StringOutputFormat(outType);
+    }
+
+    private Config.outputFormat StringOutputFormat(String outputFormat){
+        switch(outputFormat.toLowerCase()){
+            case "console":
+                return Config.outputFormat.CONSOLE;
+            case "txt":
+                return Config.outputFormat.TXT;
+            case "cvs":
+                return Config.outputFormat.CVS;
+            case "json":
+                return Config.outputFormat.JSON;                
+        }
+        return null;
+    }
+    
     private boolean MenuDispatcher(int menuValue){
     /**
     * Upon user's input executes certain methods
@@ -259,16 +298,16 @@ public class MenuConsole extends AbstractMenu{
                 ModifyUserOwn();
                 break;
             case "report_course":
-                generator.GenerateCourseReport();
+                generator.GenerateCourseReport(MenuOutputType());
                 break;
             case "report_student":
-                generator.GenerateStudentReport();
+                generator.GenerateStudentReport(MenuOutputType());
                 break;
             case "report_lecturer":
-                generator.GenerateLecturerReport();
+                generator.GenerateLecturerReport(MenuOutputType());
                 break;                
             case "report_lecturer_own":
-                generator.GenerateLecturerReportOwn();
+                generator.GenerateLecturerReportOwn(MenuOutputType());
                 break;
         }
 

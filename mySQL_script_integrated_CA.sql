@@ -258,5 +258,5 @@ SELECT l.fullname AS lecturer_name, l.role AS lecturer_role,
 FROM lecturers l
 JOIN modules m ON l.id = m.lecturer_id
 LEFT JOIN enrollments e ON m.id = e.course_id
-WHERE l.id = 1
+WHERE l.id = 2
 GROUP BY l.fullname, l.role;		

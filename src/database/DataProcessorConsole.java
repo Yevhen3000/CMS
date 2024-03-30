@@ -7,6 +7,8 @@ package database;
 import cms.Config;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author  Yevhen Kuropiatnyk
@@ -31,12 +33,15 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
     }
    
     @Override
-    public void GenerateLecturerReport(){
+    public void GenerateLecturerReport(Config.outputFormat outputFormat){
         
-        ResultSet rs;
+        if (outputFormat==null) return;
+        
+        System.out.println(outputFormat);
+        
+        List<String> reportLines = GetLecturerReport();
         int lineCount = 1;
         String formatString = "%-4s | %-20s | %-20s | %-85s | %-10s\n";
-        rs = config.db.getResultSet(queryLecturerReport);
         try {
             // Table header
             String headerString = String.format(formatString,
@@ -48,26 +53,42 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
             String underline = "_".repeat(headerString.length()+ 2);
             System.out.print("Student Report:\n" + underline + "\n" + headerString + "\n" + underline + "\n" );
             
-            while (rs.next()) {
-     
-                System.out.printf(formatString,
-                lineCount,        
-                rs.getString("lecturer_name"),
-                rs.getString("lecturer_role"),
-                rs.getString("taught_modules"),
-                rs.getString("classes_taught"));
-               
+            for (String line : reportLines) {
+                String[] part = line.split(",");
+                System.out.printf(formatString,lineCount,part[0],part[1],part[2],part[3]);
                 lineCount++;
             }
             System.out.println(underline + "\nTotal records: " + (lineCount-1));
             
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }        
     }    
+    
+    private List<String> GetLecturerReport(){
+        ResultSet rs;
+        rs = config.db.getResultSet(queryLecturerReport);
+        List<String> records = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                records.add(rs.getString("lecturer_name") + "," + 
+                            rs.getString("lecturer_role") + "," + 
+                            rs.getString("taught_modules") + "," + 
+                            rs.getString("classes_taught")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }           
+        return records;
+    }
+        
+    
+    
 
     @Override
-    public void GenerateLecturerReportOwn(){
+    public void GenerateLecturerReportOwn(Config.outputFormat  outputFormat){
         
         ResultSet rs;
         int lineCount = 1;
@@ -115,7 +136,7 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
 
     
     @Override
-    public void GenerateStudentReport(){
+    public void GenerateStudentReport(Config.outputFormat  outputFormat){
         
         ResultSet rs;
         int lineCount = 1;
@@ -155,7 +176,7 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
     }
     
     @Override
-    public void GenerateCourseReport(){
+    public void GenerateCourseReport(Config.outputFormat  outputFormat){
         
         ResultSet rs;
         int lineCount = 1;

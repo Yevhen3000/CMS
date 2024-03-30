@@ -53,11 +53,11 @@ public class CMS {
         * Launch application menu.
         */         
         MenuController menuCtrl = new MenuController(appConfig);
-        //menuCtrl.menu. .ShowUserList();
-        //menuCtrl.menu.showMenu();
+        menuCtrl.menu.showMenu();
         
-        MenuConsole mm = new MenuConsole(appConfig);
-        mm.ShowUserList();
+//      For Debug        
+//      MenuConsole mm = new MenuConsole(appConfig);
+//      mm.ShowUserList();
   
         /*
         * Shutdown our app

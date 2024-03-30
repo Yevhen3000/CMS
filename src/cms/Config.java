@@ -54,11 +54,11 @@ public class Config {
     public enum outputType {
         FILE,
         CONSOLE,
-        DATABASE,
         REST
     }
     
     public enum outputFormat {
+        CONSOLE,
         TXT,
         CVS,
         JSON
@@ -69,6 +69,8 @@ public class Config {
         OFFICE,
         LECTURER
     }
+    
+    public String[] output_formats = {"console", "txt", "cvs", "json"};
     
     public String[] admin_permissions = {"list_users", "add_user", "modify_user", "delete_user", "can_change_own" };
     public String[] office_permissions = {"report_course", "report_student", "report_lecturer","can_change_own"};

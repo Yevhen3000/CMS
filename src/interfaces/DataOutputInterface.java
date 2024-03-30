@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import cms.Config;
+
 /**
  * @author  Yevhen Kuropiatnyk
  * @email   evgeniy.kuropyatnik@gmail.com
@@ -15,8 +17,8 @@ package interfaces;
 * such as "A txt file", "A csv file", "Output to the NetBeans Console"
 */
 public interface DataOutputInterface {
-    void GenerateCourseReport();
-    void GenerateStudentReport();
-    void GenerateLecturerReport();
-    void GenerateLecturerReportOwn();
+    void GenerateCourseReport( Config.outputFormat  outputFormat);
+    void GenerateStudentReport( Config.outputFormat  outputFormat );
+    void GenerateLecturerReport(Config.outputFormat  outputFormat );
+    void GenerateLecturerReportOwn(Config.outputFormat  outputFormat );
 }

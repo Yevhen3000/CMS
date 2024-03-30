@@ -54,11 +54,12 @@ public class User {
     }
     
     public void Modify(String oldUsername, String newUsername, String newPassword) {
-        app.db.makeQuery("UPDATE users set `user` = '"+newUsername+"' `password` = '"+sec.hashPassword(newPassword)+"' WHERE name='"+oldUsername+"';");
+        app.db.makeQuery("UPDATE users set `name` = '"+newUsername+"', `password` = '"+sec.hashPassword(newPassword)+"' WHERE name='"+oldUsername+"'");
     }
 
     public void ModifySuper(String oldUsername, String newUsername, String newPassword, Config.userType role) {
-        app.db.makeQuery("UPDATE users set `user` = '"+newUsername+"' `password` = '"+sec.hashPassword(newPassword)+"', type = "+resolveUserRole(role)+"  WHERE name='"+oldUsername+"';");
+        System.out.println("Type:" + resolveUserRole(role) + "role:" + role);
+        app.db.makeQuery("UPDATE users set `name` = '"+newUsername+"', `password` = '"+sec.hashPassword(newPassword)+"', type = "+resolveUserRole(role)+"  WHERE name='"+oldUsername+"'");
     }
     
     public boolean Authenticate(String username, String password){
@@ -66,7 +67,6 @@ public class User {
         int count = 0;
         
         String query = "SELECT id, type, COUNT(*) as count FROM users WHERE `name` = '"+ username +"' AND `password` = '"+password+"'";
-        System.out.println(query);
         rs = app.db.getResultSet(query);
         try {
             rs.next();
