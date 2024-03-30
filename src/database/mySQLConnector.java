@@ -25,13 +25,14 @@ import java.sql.ResultSet;
 public class mySQLConnector extends AbstractDatabaseConnector {
 
     private Config config;
-    
-    public mySQLConnector(Config appConfig){
+
     /**
     * Init mySQL server variables
     * @param application config
     * @return Nothing
-    */  
+    */     
+    public mySQLConnector(Config appConfig){
+ 
         config = appConfig;
         db_url = config.getUrlHost();
         db_user = config.getUser();
@@ -39,15 +40,15 @@ public class mySQLConnector extends AbstractDatabaseConnector {
         db_database = config.getDbName();
     }
     
-
-    @Override
-    public void connect() {
      /**
      * Tries to connect to a mySQL server
      * And keeps a connection open
      *
      * throws Exception if connection error occurs
-     */        
+     */ 
+    @Override
+    public void connect() {
+       
         try {
             conn = DriverManager.getConnection(db_url, db_user, db_password);
         } catch (Exception e) {
@@ -57,13 +58,14 @@ public class mySQLConnector extends AbstractDatabaseConnector {
         }
     }
 
-    @Override
-    public void makeQuery(String query){
      /**
      * Execute a query to the MySQL server
      * @param query -  a mySQL query string
      * throws Exception if execution error occurs
-     */        
+     */  
+    @Override
+    public void makeQuery(String query){
+      
         
         if (conn==null) {
             System.out.println("Error: no active MySQL connection");

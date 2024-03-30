@@ -15,6 +15,9 @@ import interfaces.DataOutputInterface;
 
 abstract public class AbstractDataProcessor implements DataOutputInterface{
 
+    /**
+     * A query string to obtain Course Report
+     */
     public String queryCourseReport =  "SELECT m.name AS module_name, c.name AS course_name, COUNT(e.student_id) AS enrolled_students, \n" +
                     "	   l.fullname AS lecturer, m.room AS room\n" +
                     "FROM modules m \n" +
@@ -23,6 +26,9 @@ abstract public class AbstractDataProcessor implements DataOutputInterface{
                     "LEFT JOIN enrollments e ON m.id = e.course_id\n" +
                     "GROUP BY m.name, c.name, l.fullname, m.room;"; 
     
+    /**
+     *  A query string to obtain Student Report
+     */
     public String queryStudentReport =  "SELECT s.fullname AS student_name, s.number AS student_number, c.name AS programme,\n" +
                     "    GROUP_CONCAT(DISTINCT m_enrolled.name ORDER BY m_enrolled.name ASC SEPARATOR ', ') AS enrolled_modules,\n" +
                     "    GROUP_CONCAT(DISTINCT CONCAT(m_completed.name, ' (Grade: ', g.grade, ')') ORDER BY m_completed.name ASC SEPARATOR ', ') AS completed_modules_with_grades,\n" +
@@ -45,6 +51,9 @@ abstract public class AbstractDataProcessor implements DataOutputInterface{
                     "LEFT JOIN modules m_repeated ON grades.repeated_module = m_repeated.name\n" +
                     "GROUP BY s.fullname, s.number, c.name";
     
+    /**
+     * A query string to obtain Lecturer Report
+     */
     public String queryLecturerReport =  "SELECT l.fullname AS lecturer_name, l.role AS lecturer_role,\n" +
                     "    GROUP_CONCAT(DISTINCT m.name ORDER BY m.name ASC SEPARATOR ', ') AS taught_modules,\n" +
                     "    COUNT(DISTINCT e.student_id) AS enrolled_students,\n" +
@@ -54,21 +63,37 @@ abstract public class AbstractDataProcessor implements DataOutputInterface{
                     "LEFT JOIN enrollments e ON m.id = e.course_id\n" +
                     "GROUP BY l.fullname, l.role;"; 
     
+    /**
+     * Dummy for future implementation
+     * @param outputFormat
+     */
     @Override
     public void GenerateCourseReport(Config.outputFormat  outputFormat) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Dummy for future implementation
+     * @param outputFormat
+     */
     @Override
     public void GenerateStudentReport(Config.outputFormat  outputFormat) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Dummy for future implementation
+     * @param outputFormat
+     */
     @Override
     public void GenerateLecturerReport(Config.outputFormat  outputFormat) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     * Dummy for future implementation
+     * @param outputFormat
+     */
     @Override
     public void GenerateLecturerReportOwn(Config.outputFormat  outputFormat){
         throw new UnsupportedOperationException("Not supported yet.");

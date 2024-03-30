@@ -24,14 +24,19 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
     
     private Config config;
     
+    /**
+   * Constructer - initializes class
+   * @param appConfig - an instance of Config class
+   */  
     public DataProcessorConsole(Config appConfig) {
-        /**
-         * Constructer - initializes class
-         * @param appConfig - an instance of Config class
-         */        
+      
         config = appConfig;
     }
    
+    /**
+     * Genera teLecturer Report
+     * @param outputFormat
+     */
     @Override
     public void GenerateLecturerReport(Config.outputFormat outputFormat){
         //The name of the lecturer | Their role | The modules | e number of students |  types of classes
@@ -60,7 +65,12 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
             System.out.println("Error: " + e.getMessage());
         }        
     }    
-    
+
+    /**
+     * Helper that actually generates Lecturer Report
+     * @param outputFormat
+     * @return List<String> - array of string coma separated (ready for CSV file format) 
+     */    
     private List<String> GetLecturerReport(){
         ResultSet rs;
         rs = config.db.getResultSet(queryLecturerReport);
@@ -81,9 +91,10 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         return records;
     }
         
-    
-    
-
+    /**
+     * Generates Lecturer Report Own
+     * @param outputFormat
+     */
     @Override
     public void GenerateLecturerReportOwn(Config.outputFormat  outputFormat){
         
@@ -130,8 +141,10 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         }        
     }
 
-
-    
+    /**
+     * Generates Student Report
+     * @param outputFormat
+     */
     @Override
     public void GenerateStudentReport(Config.outputFormat  outputFormat){
         
@@ -166,6 +179,10 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         }        
     }
     
+    /**
+     * Generates Course Report
+     * @param outputFormat
+     */
     @Override
     public void GenerateCourseReport(Config.outputFormat  outputFormat){
         
