@@ -35,7 +35,7 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         
         ResultSet rs;
         int lineCount = 1;
-        String formatString = "%-4s | %-20s | %-20s | %-45s | %-10s\n";
+        String formatString = "%-4s | %-20s | %-20s | %-85s | %-10s\n";
         //lecturer_name| lecturer_role | taught_modules | enrolled_students | classes_taught
         rs = config.db.getResultSet(queryLecturerReport);
         try {

@@ -49,6 +49,8 @@ public class Config {
     public String input_type;
     public User currentUser = null;
     
+    public String security_salt = "[B@186f8716";
+    
     public enum outputType {
         FILE,
         CONSOLE,

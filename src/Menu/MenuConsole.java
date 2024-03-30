@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 import users.User;
 import users.UserPermissions;
-import cms.Config.userType;
 import database.DataProcessorController;
 import interfaces.DataOutputInterface;
 
@@ -42,13 +41,9 @@ public class MenuConsole extends AbstractMenu{
         appConfig.currentUser = new User(appConfig);
         //appConfig.currentUser.Add("admin", appConfig.getAdminPassword(), userType.ADMIN , false );
         //appConfig.currentUser.Add("lecturer", "pass", userType.LECTURER, true );
-        appConfig.currentUser.Add("office", "pass", userType.OFFICE, true );
+        //appConfig.currentUser.Add("office", "pass", userType.OFFICE, true );
                 
-        if (appConfig.currentUser == null) {
-            do {
-                // Do while user enters
-            } while(!UserLogin());
-        }
+        if (appConfig.currentUser.getUserId() == 0) UserLogin();
         
         if (menuList.isEmpty()) InitUserMenu();
         MainMenuLoop();
@@ -59,19 +54,27 @@ public class MenuConsole extends AbstractMenu{
         // Hide menu
     }
     
-    public boolean UserLogin(){
+    public void UserLogin(){
         boolean loginOK = false;
+        Security sec = new Security(appConfig);
         
-        System.out.println("=== Login menu ===");
-        String login = getUserInput("Login:");
-        String password = getUserInput("Password:");
-        
-        Security sec = new Security();
-        if (login.equalsIgnoreCase("admin") && sec.verifyPassword(password,appConfig.getAdminPassword())) {
-            loginOK = true;
-        }
-        
-        return loginOK;
+        do{
+            System.out.println("=== Login menu ===");
+            String login = getUserInput("Login:");
+            String password = getUserInput("Password:");
+            
+            System.out.println("pass:" + sec.hashPassword("java")); 
+            sec.verifyPassword(password,"SMMvk5qIJkFpqCJ/4zgBMA==:/ZyiVKOlUS+GKamrjtROmicCGVbExSJ4vDU9sCvllFc=");
+            
+            boolean ok = appConfig.currentUser.IsUserExists(login,sec.hashPassword(password));
+            System.out.println("ok:" + ok);
+            if (!ok) {
+                System.out.println("Login or password are incorrect!");
+            } else {
+                loginOK = true;
+                System.out.println("Welcome," + login);
+            }
+        } while(!loginOK);
     }
     
     public void MainMenuLoop(){
@@ -121,8 +124,6 @@ public class MenuConsole extends AbstractMenu{
                 generator.GenerateStudentReport();
                 break;
             case "report_lecturer":
-                generator.GenerateLecturerReport();
-                break;
             case "report_lecturer_own":
                 generator.GenerateLecturerReport();
                 break;
