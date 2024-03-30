@@ -71,13 +71,19 @@ public class User {
         try {
             rs.next();
             count = rs.getInt("count");
-            userId = rs.getInt("id");
+            this.userId = rs.getInt("id");
             this.username = username;
-            role =  encodeUserRole(rs.getInt("type"));
+            this.role =  encodeUserRole(rs.getInt("type"));
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         } 
         return (count != 0);
+    }
+    
+    public void LogOut(){
+        this.userId = 0;
+        this.username = "";
+        this.role =  null;
     }
 
     public List<String> GetUserList(){

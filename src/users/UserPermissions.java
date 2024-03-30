@@ -15,11 +15,11 @@ import java.util.HashMap;
  * @student sba23066
  */
 
+
+public class UserPermissions {
 /**
 * Class is to implement users's permissions in the app
-*/
-public class UserPermissions {
-    
+*/    
     private Config config;
     private Map<userType, String[]> permissionsMap;
     

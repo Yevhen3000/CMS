@@ -68,7 +68,7 @@ public class MenuConsole extends AbstractMenu{
             if (!UserLogin()) hideMenu();
         }
         
-        if (menuList.isEmpty()) InitUserMenu();
+        InitUserMenu();
         MainMenuLoop();        
     }
     
@@ -92,7 +92,7 @@ public class MenuConsole extends AbstractMenu{
                 System.out.println("Login or password are incorrect!");
             } else {
                 loginOK = true;
-                System.out.println("Welcome," + login);
+                System.out.println("Welcome," + login + " ["+app.currentUser.getRole()+"]");
             }
         } while(!loginOK);
         return true;
@@ -165,6 +165,9 @@ public class MenuConsole extends AbstractMenu{
             return;
         }                
         app.currentUser.Modify(app.currentUser.getUsername(), login, password);
+        
+        app.currentUser.LogOut();
+        StartMenu();
     }    
 
     public void ModifyUser(){
@@ -199,6 +202,11 @@ public class MenuConsole extends AbstractMenu{
             return;
         }
         app.currentUser.ModifySuper(loginOld, loginNew, password, userRole);
+        
+        if (app.currentUser.getUsername().equalsIgnoreCase(loginOld) ) {
+            app.currentUser.LogOut();
+            StartMenu();
+        }
     }     
     
     
@@ -218,7 +226,7 @@ public class MenuConsole extends AbstractMenu{
                     int menuValue = Integer.parseInt(choice);
                     if (menuValue==0) {
                         inLoop=false;
-                        app.currentUser.setUserId(0);
+                        app.currentUser.LogOut();
                         StartMenu();
                     } else {
                        if (!MenuDispatcher(menuValue)) System.out.println("Invalid command!");
