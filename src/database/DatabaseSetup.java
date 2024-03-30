@@ -105,12 +105,16 @@ public class DatabaseSetup {
     * Create a new DataBase if there is still no
     * and all tables we need to work with
     * 
+     * @param appConfig -current config 
     */
     public DatabaseSetup( Config appConfig ){
         database = appConfig.db;
         config = appConfig;
     }
     
+    /**
+     * Create DataBase
+     */
     public void Init(){
         createDataBase();
     }

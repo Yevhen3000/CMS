@@ -19,18 +19,20 @@ import java.util.Scanner;
 public class MyHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+    /**
+     * REST API functionality implementation
+     * ToDO: as a futher development and integration of this application
+     * Honestly speaking I need extra time to implemet this
+     */        
 //        String response = "Login form here:"; 
-//        // Or REST API functionality implementation
-//        
 //        // Response status and length
 //        exchange.sendResponseHeaders(200, response.length());
-//
 //        // Output the response 
 //        try (OutputStream stream = exchange.getResponseBody()) {
 //            stream.write(response.getBytes());
 //        }
 
-      // Get the request method (GET, POST, etc.)
+            // Get the request method (GET, POST, etc.)
             String requestMethod = exchange.getRequestMethod();
             
             // Get the request URI
@@ -43,7 +45,7 @@ public class MyHttpHandler implements HttpHandler {
                 requestBody.append(scanner.nextLine());
             }
             scanner.close();
-            
+            // DEBUG
             //Request Method: GET
             //Request URI: /home  OR /home?menuitem=1
             //Request Body: 
@@ -61,6 +63,5 @@ public class MyHttpHandler implements HttpHandler {
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
-
     }
 }

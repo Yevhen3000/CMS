@@ -34,28 +34,24 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
    
     @Override
     public void GenerateLecturerReport(Config.outputFormat outputFormat){
-        
+        //The name of the lecturer | Their role | The modules | e number of students |  types of classes
         if (outputFormat==null) return;
         
-        System.out.println(outputFormat);
+        System.out.println("outputFormat:"+outputFormat);
         
         List<String> reportLines = GetLecturerReport();
         int lineCount = 1;
-        String formatString = "%-4s | %-20s | %-20s | %-85s | %-10s\n";
+        String formatString = "%-4s | %-20s | %-20s | %-40s | %-40s | %-10s\n";
         try {
             // Table header
-            String headerString = String.format(formatString,
-            "#",        
-            "lecturer_name",
-            "lecturer_role",
-            "taught_modules",
-            "classes_taught");
+            String headerString = String.format(formatString,"#", "lecturer name", "lecturer role", "taught modules", "students", "classes taught");
             String underline = "_".repeat(headerString.length()+ 2);
-            System.out.print("Student Report:\n" + underline + "\n" + headerString + "\n" + underline + "\n" );
+            System.out.print("Student Report:\n" + underline + "\n" + headerString + underline + "\n" );
             
+            //lecturer_name, lecturer_role, taught_modules, enrolled_students, classes_taught
             for (String line : reportLines) {
                 String[] part = line.split(",");
-                System.out.printf(formatString,lineCount,part[0],part[1],part[2],part[3]);
+                System.out.printf(formatString,lineCount,part[0],part[1],part[2],part[3],part[4]);
                 lineCount++;
             }
             System.out.println(underline + "\nTotal records: " + (lineCount-1));
@@ -74,6 +70,7 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
                 records.add(rs.getString("lecturer_name") + "," + 
                             rs.getString("lecturer_role") + "," + 
                             rs.getString("taught_modules") + "," + 
+                            rs.getString("enrolled_students") + "," + 
                             rs.getString("classes_taught")
                 );
             }
@@ -140,20 +137,14 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         
         ResultSet rs;
         int lineCount = 1;
-        String formatString = "%-4s | %-45s | %-45s | %-8s | %-20s | %s";
+        String formatString = "%-4s | %-20s | %-6s | %-45s | %-20s | %s\n";
 
         rs = config.db.getResultSet(queryStudentReport);
         try {
             // Table header
-            String headerString = String.format(formatString,
-            "#",        
-            "student_name",
-            "student_number",
-            "course",
-            "lecturer",
-            "room");
-            String underline = "_".repeat(headerString.length()+ 2);
-            System.out.print("Student Report:\n" + underline + "\n" + headerString + "\n" + underline + "\n" );
+            String headerString = String.format(formatString, "#", "student name", "number", "course", "modules", "grades");
+            String underline = "-".repeat(headerString.length()+ 2);
+            System.out.print("Student Report:\n" + underline + "\n" + headerString + underline + "\n" );
             
             while (rs.next()) {
      
@@ -180,7 +171,7 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
         
         ResultSet rs;
         int lineCount = 1;
-        String formatString = "%-4s | %-45s | %-45s | %-8s | %-20s | %s";
+        String formatString = "%-4s | %-45s | %-45s | %-8s | %-20s | %s\n";
 
         rs = config.db.getResultSet(queryCourseReport);
         try {
@@ -193,7 +184,7 @@ public class DataProcessorConsole extends AbstractDataProcessor  {
             "lecturer",
             "room");
             String underline = "_".repeat(headerString.length()+ 2);
-            System.out.print("Course Report:\n" + underline + "\n" + headerString + "\n" + underline + "\n" );
+            System.out.print("Course Report:\n" + underline + "\n" + headerString + underline + "\n" );
             
             while (rs.next()) {
      

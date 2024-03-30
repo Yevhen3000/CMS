@@ -135,9 +135,9 @@ public class User {
         switch(userType){
             case 99:
                 return Config.userType.ADMIN;
-            case 20:
-                return Config.userType.OFFICE;
             case 10:
+                return Config.userType.OFFICE;
+            case 20:
                 return Config.userType.LECTURER;
         }
         return null;

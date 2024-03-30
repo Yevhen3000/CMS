@@ -76,10 +76,18 @@ public class Config {
     public String[] office_permissions = {"report_course", "report_student", "report_lecturer","can_change_own"};
     public String[] lecturer_permissions = {"report_lecturer_own", "can_change_own"};
 
+    /**
+     *
+     * @return admin password
+     */
     public String getAdminPassword() {
         return admin_password;
     }
     
+    /**
+     *
+     * @return  databasename
+     */
     public String getDbName() {
         return database_name;
     }
@@ -88,18 +96,34 @@ public class Config {
         return db_host;
     }
 
+    /**
+     *
+     * @return database user
+     */
     public String getUser() {
         return db_user;
     }
 
+    /**
+     *
+     * @return database password
+     */
     public String getPassword() {
         return db_password;
     }
     
+    /**
+     *
+     * @return database type
+     */
     public String getDbType() {
         return db_type;
     }    
 
+    /**
+     *
+     * @return menu type
+     */
     public String getMenuType() {
         return input_type;
     }   
@@ -108,7 +132,6 @@ public class Config {
      * Parses a content of JSON string and initializes variables 
      * for DB connction
      *
-     * throws ParseException if parse JSON error occurs
      */
     public void Init(){
         

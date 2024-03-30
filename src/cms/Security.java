@@ -22,14 +22,20 @@ public class Security {
 
     private Config config;
     
+    /**
+     *
+     * @param appConfig - current applocation's configuration
+     */
     public Security(Config appConfig) {
        config = appConfig;
     }
     
-    /*
-    * Hashes a password with dynamic salt
-    * 
-    */
+    /**
+     * Hashes a password with dynamic salt
+     * @param password - string in plane text
+     * @return hashed Password
+     */
+
     public String hashPassword(String password) {
         try {
             byte[] salt = config.security_salt.getBytes();
@@ -42,11 +48,13 @@ public class Security {
             return null;
         }
     }
-    
-    /*
-    * Hashes a password with dynamic salt
-    * 
-    */
+
+    /**
+     * Hashes a password with dynamic salt
+     * @param password - a password in plain text
+     * @return hashed Password with dynamic salt
+     */
+
     public String hashPasswordDynamic(String password) {
         try {
             byte[] salt = generateSalt();
@@ -60,14 +68,14 @@ public class Security {
         }
     }    
     
-
-    public boolean verifyPassword(String inputPassword, String storedPassword) {
     /**
-    * Verifyies a password with hashed one
-    * @param String inputPassword - plain string of password
-    * @param String storedPassword - hashed password string to compare with
-    * @return true if password are the same otherwise false
-    */        
+     * Verifyies a password with hashed one
+     * @param inputPassword - plain string of password
+     * @param storedPassword - hashed password string to compare with
+     * @return true if password are the same otherwise false
+     */
+    public boolean verifyPassword(String inputPassword, String storedPassword) {
+      
         try {
             String[] parts = storedPassword.split(":");
             byte[] salt = Base64.getDecoder().decode(parts[0]);
@@ -85,7 +93,7 @@ public class Security {
 
     /**
     * Creates a salt
-    * 
+    * @return - byte[] salt - salt itself
     */
     private byte[] generateSalt() {
         byte[] salt = new byte[16];

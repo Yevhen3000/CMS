@@ -33,37 +33,38 @@ public class MenuConsole extends AbstractMenu{
     
     private Config.outputFormat outFormat;
        
+    /**
+    * Initialization
+    * @param appConfig (Config) - object of current application config 
+    */
     public MenuConsole(Config appConfig){
-        /**
-        * Initialization
-        * @param appConfig (Config) - object of current application config 
-        */
        this.app = appConfig;
        app.currentUser = new User(app);
     }
     
-    @Override
-    public void showMenu() {
     /**
     * Launches main menu
-    */        
+    */ 
+    @Override
+    public void showMenu() {
         StartMenu();
     }
 
-    @Override
-    public void hideMenu() {
     /**
     * Exiting the application
-    */        
+    */ 
+    @Override
+    public void hideMenu() {
         System.out.println("Exiting...");
         System.exit(0);
     }
     
-    public void StartMenu(){
     /**
     * Checks for UserId if it is 0 then user must login
     * Otherwise it shows user menu
-    */       
+    */
+    public void StartMenu(){
+       
         if (app.currentUser.getUserId() == 0) {
             if (!UserLogin()) hideMenu();
         }
@@ -72,10 +73,12 @@ public class MenuConsole extends AbstractMenu{
         MainMenuLoop();        
     }
     
-    public boolean UserLogin(){
     /**
     * Login menu. it checks login and password with database
-    */        
+    * @return false if auth failed or true if login ok
+    */
+    public boolean UserLogin(){
+        
         boolean loginOK = false;
         Security sec = new Security(app);
         
@@ -98,10 +101,11 @@ public class MenuConsole extends AbstractMenu{
         return true;
     }
     
-    public void ShowUserList(){
     /**
     * Shows a list of all users in database
-    */         
+    */
+    public void ShowUserList(){
+         
         List<String> userList = app.currentUser.GetUserList();
         int count = 1;
         System.out.print("====== Available users =======");
@@ -114,19 +118,21 @@ public class MenuConsole extends AbstractMenu{
         System.out.println("\n==============================");
     }
     
-    public void UserDelete(){
     /**
     * Deletes a user by user's name
-    */         
+    */  
+    public void UserDelete(){
+       
         ShowUserList();
         String login = getUserInput("Enter user name to delete:");
         app.currentUser.Delete(login);
     }
 
-    public void NewUser(){
-    /**
+   /**
     * Creates a new user
-    */         
+    */  
+    public void NewUser(){
+        
         System.out.println("======== New user ========");
         String login = getUserInput("Enter new user login:");
         if (login.isEmpty()) {
@@ -147,11 +153,12 @@ public class MenuConsole extends AbstractMenu{
         app.currentUser.Add(login, password, userRole);
     }
     
-    public void ModifyUserOwn(){
     /**
     * Makes modifications to user: login and password. 
     * In this method user can't change his role
-    */            
+    */ 
+    public void ModifyUserOwn(){
+           
         System.out.println("======== Modify Own ========");
         String login = getUserInput("Enter your own new login:");
         if (login.isEmpty()) {
@@ -170,11 +177,12 @@ public class MenuConsole extends AbstractMenu{
         StartMenu();
     }    
 
-    public void ModifyUser(){
     /**
     * Makes modifications to user: login and password. 
     * In this method user CAN change his role as well
-    */                    
+    */
+    public void ModifyUser(){
+                    
         System.out.println("======== Modify User ========");
         String loginOld = getUserInput("Enter user's current login:");
         if (loginOld.isEmpty()) {
@@ -196,7 +204,6 @@ public class MenuConsole extends AbstractMenu{
         
         String role = getUserInput("Enter new user role [admin or office or lecturer]:");
         Config.userType userRole = app.currentUser.StringToUserRole(role);
-        System.out.println(userRole);
         if (userRole==null) {
             System.out.println("Error: invalid user role");
             return;
@@ -209,11 +216,11 @@ public class MenuConsole extends AbstractMenu{
         }
     }     
     
-    
-    public void MainMenuLoop(){
     /**
-    * Main menu method 
-    */                    
+     * Main menu method 
+     */
+    public void MainMenuLoop(){
+                 
         String choice;
         boolean  inLoop = true;
         Scanner sc  = new Scanner(System.in);
@@ -243,18 +250,20 @@ public class MenuConsole extends AbstractMenu{
 
     }
     
-    private Config.outputFormat MenuOutputType(){
     /**
     * Shows a output type format of the report
-    */         
+    */    
+    private Config.outputFormat MenuOutputType(){
+         
         int count = 1;
         System.out.print("======= Format output ========");
         for (String oneFormat : app.output_formats) {
             System.out.println();
             String lineString = String.format("%-1s %-3s %-20s %-1s", "| ", count, oneFormat.toUpperCase(), " |");
             System.out.print(lineString);
+            count++;
         }
-        System.out.println("==============================");
+        System.out.println("\n==============================");
         String outType = getUserInput("Enter output type:");
         if (outType.isEmpty()) {
             System.out.println("Error: invalid type");
@@ -277,12 +286,13 @@ public class MenuConsole extends AbstractMenu{
         }
         return null;
     }
-    
-    private boolean MenuDispatcher(int menuValue){
+
     /**
     * Upon user's input executes certain methods
     * @param menuValue - a number user has entered
-    */                    
+    */     
+    private boolean MenuDispatcher(int menuValue){
+                   
         boolean returnVal = true;
         if (menuValue > menuAction.size()) return false;
         
@@ -322,20 +332,22 @@ public class MenuConsole extends AbstractMenu{
         return returnVal;
     }
     
-    private void ShowUserMenu(){
     /**
     * Shows a list of menu
-    */       
+    */    
+    private void ShowUserMenu(){
+       
         for (String item : menuList) {
             System.out.println(item);
         }
         System.out.println("Please, enter the menu command number:"); 
     }
     
-    public void InitUserMenu(){
     /**
     * Creates main menu acording to user's rights 
-    */        
+    */   
+    public void InitUserMenu(){
+     
         menuList.clear();
         menuAction.clear();
         if (app.currentUser == null) {
@@ -362,13 +374,14 @@ public class MenuConsole extends AbstractMenu{
         MenuBuildItem("","############################################");
    
     }
-    
-    private void MenuBuildItem(String userPermission, String menuTitle){
+ 
     /**
     * Adds menu item
     * @param String userPermission - a single user's permission
     * @param String menuTitle - name of the item menu
-    */         
+    */ 
+    private void MenuBuildItem(String userPermission, String menuTitle){
+        
         if (userPermission.isEmpty()) {
             menuList.add(menuTitle);
         } else {
@@ -380,12 +393,12 @@ public class MenuConsole extends AbstractMenu{
         }
     }
     
-    private String getUserInput(String message){
-    /**
+     /**
     * Takes a string from console
     * @param message - a promt string for user
     * @return Returns a string from console input
-    */        
+    */   
+    private String getUserInput(String message){
         
         String useInput = "";
         Scanner sc  = new Scanner(System.in);
