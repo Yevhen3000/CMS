@@ -58,7 +58,6 @@ public class User {
     }
 
     public void ModifySuper(String oldUsername, String newUsername, String newPassword, Config.userType role) {
-        System.out.println("Type:" + resolveUserRole(role) + "role:" + role);
         app.db.makeQuery("UPDATE users set `name` = '"+newUsername+"', `password` = '"+sec.hashPassword(newPassword)+"', type = "+resolveUserRole(role)+"  WHERE name='"+oldUsername+"'");
     }
     

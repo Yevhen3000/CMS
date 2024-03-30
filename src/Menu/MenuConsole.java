@@ -232,10 +232,10 @@ public class MenuConsole extends AbstractMenu{
                        if (!MenuDispatcher(menuValue)) System.out.println("Invalid command!");
                     }
                 }
-                if (app.currentUser.getUserId() == 0) {
-                    inLoop=false;
-                    StartMenu();
-                }
+//                if (app.currentUser.getUserId() == 0) {
+//                    inLoop=false;
+//                    StartMenu();
+//                }
             } catch (Exception e){
                 System.out.println("Error: " + e.getMessage());
             }                   
@@ -251,8 +251,8 @@ public class MenuConsole extends AbstractMenu{
         System.out.print("======= Format output ========");
         for (String oneFormat : app.output_formats) {
             System.out.println();
-            String lineString = String.format("%-1s %-3s %-20s %-1s", "| ", count, oneFormat, " |");
-            System.out.println(lineString);
+            String lineString = String.format("%-1s %-3s %-20s %-1s", "| ", count, oneFormat.toUpperCase(), " |");
+            System.out.print(lineString);
         }
         System.out.println("==============================");
         String outType = getUserInput("Enter output type:");
@@ -336,7 +336,8 @@ public class MenuConsole extends AbstractMenu{
     /**
     * Creates main menu acording to user's rights 
     */        
-        
+        menuList.clear();
+        menuAction.clear();
         if (app.currentUser == null) {
             System.out.println("Error: user is not authorized");
             return;
