@@ -19,6 +19,7 @@ import interfaces.DataOutputInterface;
 public class CMS {
     /**
     * This Class is an entry point of this app
+    * GitHub https://github.com/Yevhen3000/CMS
     */
 
     private static Config app;
